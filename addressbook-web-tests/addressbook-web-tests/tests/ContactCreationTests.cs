@@ -17,8 +17,8 @@ namespace WebAddressbookTests
 		[Test]
 		public void  ContactCreationTest()
 		{
-			navigator.GoToHomePage();
-			loginHelper.Login(new AccountData("admin", "secret"));
+			app.Navigator.GoToHomePage();
+			app.Auth.Login(new AccountData("admin", "secret"));
 			AddNewContact();			
 			ContactData contact = new ContactData("Myname", "Mysurname");
 			contact.Mobile = "+79119494760";
@@ -26,7 +26,7 @@ namespace WebAddressbookTests
 			FillContactForm(contact);
 			SubmitContactCreation();
 			GoToContacts();
-			loginHelper.Logout();
+			app.Auth.Logout();
 		}
 
 		
