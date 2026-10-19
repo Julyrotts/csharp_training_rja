@@ -11,7 +11,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 
 {
-	public class TestBase
+	public class TestBase // базовый класс для тестовых классов
 	{
 		protected IWebDriver driver;
 		protected StringBuilder verificationErrors;
