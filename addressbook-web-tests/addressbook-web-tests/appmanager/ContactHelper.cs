@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -9,38 +10,20 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-	[TestFixture]
-	public class ContactCreationTests : TestBase
+	public class ContactHelper : HelperBase
 	{
-		
-		
-		[Test]
-		public void  ContactCreationTest()
-		{
-			navigator.GoToHomePage();
-			loginHelper.Login(new AccountData("admin", "secret"));
-			AddNewContact();			
-			ContactData contact = new ContactData("Myname", "Mysurname");
-			contact.Mobile = "+79119494760";
-			contact.Email = "rotc_ya@utisitgroup.ru";
-			FillContactForm(contact);
-			SubmitContactCreation();
-			GoToContacts();
-			loginHelper.Logout();
-		}
-
-		
-		private void SubmitContactCreation()
+		public ContactHelper(IWebDriver driver) : base(driver) { }
+		public void SubmitContactCreation()
 		{
 			driver.FindElement(By.XPath("//div[@id='content']/form/input[19]")).Click();
 		}
 
-		private void GoToContacts()
+		public void GoToContacts()
 		{
 			driver.FindElement(By.LinkText("home")).Click();
 		}
-		
-		private void FillContactForm(ContactData contact)
+
+		public void FillContactForm(ContactData contact)
 		{
 			driver.FindElement(By.Name("firstname")).Click();
 			driver.FindElement(By.Name("firstname")).Clear();
@@ -72,7 +55,7 @@ namespace WebAddressbookTests
 			driver.FindElement(By.Name("mobile")).SendKeys(contact.Mobile);
 			driver.FindElement(By.Name("work")).Click();
 			driver.FindElement(By.Name("email")).Click();
-			driver.FindElement(By.Name("email")).Clear(); 
+			driver.FindElement(By.Name("email")).Clear();
 			driver.FindElement(By.Name("email")).SendKeys(contact.Email);
 			driver.FindElement(By.Name("email2")).Click();
 			driver.FindElement(By.Name("email3")).Click();
@@ -97,11 +80,12 @@ namespace WebAddressbookTests
 			driver.FindElement(By.Name("new_group")).SendKeys(contact.New_group);
 		}
 
-		private void AddNewContact()
+		public void AddNewContact()
 		{
 			driver.FindElement(By.LinkText("add new")).Click();
 		}
-				
-				
+
+
 	}
+
 }
