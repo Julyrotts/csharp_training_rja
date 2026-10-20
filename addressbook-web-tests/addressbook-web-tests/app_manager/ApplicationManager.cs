@@ -14,18 +14,18 @@ namespace WebAddressbookTests
 		protected IWebDriver driver;
 		protected bool acceptNextAlert = true;
 		protected string baseURL;
-		protected LoginHelper loginHelper;
 		protected NavigationHelper navigator;
+		protected LoginHelper loginHelper;
 		protected GroupHelper groupHelper;
 		protected ContactHelper contactHelper;
 
 		public ApplicationManager() // инициализация полей, которые перечислены выше
 		{
+			driver = new FirefoxDriver();
+			baseURL = "http://localhost";
 			loginHelper = new LoginHelper(driver);
 			navigator = new NavigationHelper(driver, baseURL);
 			groupHelper = new GroupHelper(driver);
-			driver = new FirefoxDriver();
-			baseURL = "http://localhost";
 			contactHelper = new ContactHelper(driver);
 			//verificationErrors = new StringBuilder();
 
