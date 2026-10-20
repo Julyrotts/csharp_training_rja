@@ -12,7 +12,7 @@ namespace WebAddressbookTests
 {
 	public class NavigationHelper : HelperBase
 	{
-		private string baseURL;
+		public string baseURL;
 		public NavigationHelper(IWebDriver driver, string baseURL) : base(driver) 
 		{
 			this.baseURL=baseURL;
@@ -26,6 +26,11 @@ namespace WebAddressbookTests
 			driver.FindElement(By.LinkText("groups")).Click();
 			driver.Navigate().GoToUrl("http://localhost/addressbook/group.php");
 		}
-		
+		public void GoToContacts()
+		{
+			driver.FindElement(By.LinkText("home")).Click();
+		}
+
+
 	}
 }

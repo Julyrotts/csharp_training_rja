@@ -14,7 +14,8 @@ namespace WebAddressbookTests
 	{
 	
 	public LoginHelper(IWebDriver driver) : base(driver) {	}
-		public void Login(AccountData account)
+		
+	public void Login(AccountData account)
 		{
 			driver.FindElement(By.Name("user")).Click();
 			driver.FindElement(By.Name("user")).Clear();

@@ -141,6 +141,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app_manager\ContactHelper.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="app_manager\ApplicationManager.cs" />
     <Compile Include="model\ContactData.cs" />
