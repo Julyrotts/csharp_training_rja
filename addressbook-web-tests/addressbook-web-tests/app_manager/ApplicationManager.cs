@@ -23,14 +23,15 @@ namespace WebAddressbookTests
 		{
 			driver = new FirefoxDriver();
 			baseURL = "http://localhost";
-			loginHelper = new LoginHelper(driver);
-			navigator = new NavigationHelper(driver, baseURL);
-			groupHelper = new GroupHelper(driver);
-			contactHelper = new ContactHelper(driver);
+			loginHelper = new LoginHelper(this);
+			navigator = new NavigationHelper(this, baseURL);
+			groupHelper = new GroupHelper(this);
+			contactHelper = new ContactHelper(this);
 			//verificationErrors = new StringBuilder();
 
 		}
 		// блок конструкторов, чтобы методы хелперов были видны тестам, т.к. менеджер их перегородил 
+		public IWebDriver Driver { get { return driver; } }
 		public LoginHelper Auth
 		{ get { return loginHelper; } }
 		public NavigationHelper Navigator
@@ -39,6 +40,7 @@ namespace WebAddressbookTests
 		{ get { return groupHelper; } }
 		public ContactHelper Contact
 		{ get { return contactHelper; } }
+		
 		public void Stop()
 		{
 			try

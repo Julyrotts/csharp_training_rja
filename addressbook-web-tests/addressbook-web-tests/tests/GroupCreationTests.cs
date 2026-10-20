@@ -16,8 +16,7 @@ namespace WebAddressbookTests
 			GroupData group = new GroupData("group1");
 			group.Header = "group_h";
 			group.Footer = "group_f";
-
-			app.Navigator.GoToGroupsPage();
+			
 			app.Groups.Create(group);
 
 			app.Auth.Logout();
@@ -29,8 +28,7 @@ namespace WebAddressbookTests
 			GroupData group = new GroupData("");
 			group.Header = "";
 			group.Footer = "";
-
-			app.Navigator.GoToGroupsPage();
+			
 			app.Groups.Create(group);
 				
 			app.Auth.Logout();
