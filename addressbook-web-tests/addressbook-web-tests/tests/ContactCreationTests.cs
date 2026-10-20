@@ -14,14 +14,13 @@ namespace WebAddressbookTests
 		[Test]
 		public void  ContactCreationTest()
 		{
-			app.Navigator.GoToHomePage();
-			app.Auth.Login(new AccountData("admin", "secret"));
-			app.Contact.AddNewContact();			
+							
 			ContactData contact = new ContactData("Myname", "Mysurname");
 			contact.Mobile = "+79119494760";
 			contact.Email = "rotc_ya@utisitgroup.ru";
-			app.Contact.FillContactForm(contact);
-			app.Contact.SubmitContactCreation();
+			app.Contact.AddNewContact()
+				.FillContactForm(contact)
+				.SubmitContactCreation();
 			app.Navigator.GoToContacts();
 			app.Auth.Logout();
 		}
