@@ -14,7 +14,7 @@ namespace WebAddressbookTests
 				
 
 		[SetUp]
-		public void SetupTest()
+		public void SetupTest()   // предустановки для тестов
 		{
 			app= new ApplicationManager();
 			app.Navigator.GoToHomePage();

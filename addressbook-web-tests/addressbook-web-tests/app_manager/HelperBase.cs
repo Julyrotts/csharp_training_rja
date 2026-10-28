@@ -18,5 +18,14 @@ namespace WebAddressbookTests
 		this.manager=manager;
 		this.driver= manager.Driver;
 		}
+		public void Type(By locator, string text) //напечатать что-то в поле
+		{
+			if (text != null)
+			{
+				driver.FindElement(locator).Click();
+				driver.FindElement(locator).Clear();
+				driver.FindElement(locator).SendKeys(text);
+			}
+		}
 	}
 }

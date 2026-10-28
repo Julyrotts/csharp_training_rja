@@ -63,6 +63,7 @@ namespace WebAddressbookTests
 			return this;
 
 		}
+
 		public ContactHelper FillContactForm(ContactData contact)
 		{
 			driver.FindElement(By.Name("firstname")).Click();
@@ -77,7 +78,6 @@ namespace WebAddressbookTests
 			driver.FindElement(By.Name("nickname")).Click();
 			driver.FindElement(By.Name("nickname")).Clear();
 			driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
-			//driver.FindElement(By.Name("photo")).Click();
 			driver.FindElement(By.Name("title")).Click();
 			driver.FindElement(By.Name("title")).Clear();
 			driver.FindElement(By.Name("title")).SendKeys(contact.Title);
@@ -121,45 +121,33 @@ namespace WebAddressbookTests
 
 			return this;
 		}
-
 		public ContactHelper ModifyInContact(ContactData contact)
 		{
-			driver.FindElement(By.Name("firstname")).Click();
-			driver.FindElement(By.Name("firstname")).Clear();
-			driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-			driver.FindElement(By.Name("middlename")).Click();
-			driver.FindElement(By.Name("middlename")).Clear();
-			driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
-			driver.FindElement(By.Name("lastname")).Click();
-			driver.FindElement(By.Name("lastname")).Clear();
-			driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
-			driver.FindElement(By.Name("nickname")).Click();
-			driver.FindElement(By.Name("nickname")).Clear();
-			driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
-			driver.FindElement(By.Name("title")).Click();
-			driver.FindElement(By.Name("title")).Clear();
-			driver.FindElement(By.Name("title")).SendKeys(contact.Title);
-			driver.FindElement(By.Name("company")).Click();
-			driver.FindElement(By.Name("company")).Clear();
-			driver.FindElement(By.Name("company")).SendKeys(contact.Company);
-			driver.FindElement(By.Name("address")).Click();
-			driver.FindElement(By.Name("address")).Clear();
-			driver.FindElement(By.Name("address")).SendKeys(contact.Address);
-			driver.FindElement(By.Name("home")).Click();
-			driver.FindElement(By.Name("home")).Clear();
-			driver.FindElement(By.Name("home")).SendKeys(contact.Home);
-			driver.FindElement(By.Name("mobile")).Click();
-			driver.FindElement(By.Name("mobile")).Clear();
-			driver.FindElement(By.Name("mobile")).SendKeys(contact.Mobile);
-			driver.FindElement(By.Name("work")).Click();
-			driver.FindElement(By.Name("email")).Click();
-			driver.FindElement(By.Name("email")).Clear();
-			driver.FindElement(By.Name("email")).SendKeys(contact.Email);
-			driver.FindElement(By.Name("email2")).Click();
-			driver.FindElement(By.Name("email3")).Click();
-			driver.FindElement(By.Name("homepage")).Click();
-			driver.FindElement(By.Name("homepage")).Clear();
-			driver.FindElement(By.Name("homepage")).SendKeys(contact.Homepage);
+			Type(By.Name("firstname"), contact.Firstname);
+			Type(By.Name("middlename"), contact.Middlename);
+			Type(By.Name("lastname"), contact.Lastname);
+			Type(By.Name("nickname"), contact.Nickname);
+			Type(By.Name("title"), contact.Title);
+			Type(By.Name("company"), contact.Company);
+			Type(By.Name("address"), contact.Address);
+			Type(By.Name("home"), contact.Home);
+			Type(By.Name("mobile"), contact.Mobile);
+			Type(By.Name("work"), contact.Work);
+			Type(By.Name("email"), contact.Email);
+			Type(By.Name("email2"), contact.Email2);
+			Type(By.Name("email3"), contact.Email3);
+			Type(By.Name("homepage"), contact.Homepage);
+			Type(By.Name("address"), contact.Address);
+			Type(By.Name("address"), contact.Address);
+			/*Type(By.Name("bday"), contact.Bday);
+			Type(By.Name("bmonth"), contact.Bmonth);
+			Type(By.Name("byear"), contact.Byear);
+			Type(By.Name("aday"), contact.Aday);
+			Type(By.Name("amonth"), contact.Amonth);
+			Type(By.Name("ayear"), contact.Ayear);*/
+
+			// для выбора из выпадающих списков нужен отдельный общий метод 
+
 			driver.FindElement(By.Name("bday")).Click();
 			new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.Bday);
 			driver.FindElement(By.Name("bmonth")).Click();
@@ -174,9 +162,14 @@ namespace WebAddressbookTests
 			driver.FindElement(By.Name("ayear")).Click();
 			driver.FindElement(By.Name("ayear")).Clear();
 			driver.FindElement(By.Name("ayear")).SendKeys(contact.Ayear);
-			
+
+			//driver.FindElement(By.Name("photo")).Click();					
+
+
 			return this;
 		}
+
+	
 		public ContactHelper SubmitContactCreation()
 		{
 			driver.FindElement(By.XPath("//div[@id='content']/form/input[19]")).Click();
