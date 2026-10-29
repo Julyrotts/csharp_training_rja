@@ -26,8 +26,7 @@ namespace WebAddressbookTests
 		public ContactHelper Remove(int p)
 		{
 			manager.Navigator.GoToContacts();
-			SelectContact(p);
-			InitContactModification();
+			SelectContact(p+1);
 			RemoveContact();
 			//CloseAlert();
 			manager.Navigator.GoToContacts(); ;
@@ -37,8 +36,7 @@ namespace WebAddressbookTests
 		public ContactHelper Modify(int p, ContactData modContact)
 		{
 			manager.Navigator.GoToContacts();
-			SelectContact(p);
-			InitContactModification();
+			InitContactModification(p+1);
 			ModifyInContact(modContact);
 			SubmitContactModification();
 			//CloseAlert();
@@ -46,9 +44,9 @@ namespace WebAddressbookTests
 
 			return this;
 		}
-		public ContactHelper InitContactModification()
+		public ContactHelper InitContactModification(int index)
 		{
-			driver.FindElement(By.XPath("//tr[2]/td[8]/a/img")).Click();
+			driver.FindElement(By.XPath("//tr["+ index +"]/td[8]/a/img")).Click();
 			return this;
 		}
 		public ContactHelper SubmitContactModification()
@@ -124,7 +122,7 @@ namespace WebAddressbookTests
 			Type(By.Name("amonth"), contact.Amonth);
 			Type(By.Name("ayear"), contact.Ayear);*/
 
-			// для выбора из выпадающих списков нужен отдельный общий метод 
+			// для выбора из выпадающих списков создать отдельный общий метод 
 
 			driver.FindElement(By.Name("bday")).Click();
 			new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(contact.Bday);

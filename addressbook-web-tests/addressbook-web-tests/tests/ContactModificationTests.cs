@@ -24,7 +24,7 @@ namespace WebAddressbookTests
 			modContact.Mobile = "+7 40904";
 			modContact.Email = "mail_ya@mail.ru";
 
-			app.Contact.Modify(5, modContact);
+			app.Contact.Modify(1, modContact);
 
 		}
 	}
