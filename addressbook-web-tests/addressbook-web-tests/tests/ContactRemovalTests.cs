@@ -15,6 +15,12 @@ namespace WebAddressbookTests
 		[Test]
 		public void ContactRemovalTest()
 		{
+			// подготовка
+			// если надо, создаем
+			app.Contact.IsNeedToContactCreate();
+
+			//действие			
+
 			app.Contact.Remove(3);
 
 			//app.Auth.Logout();

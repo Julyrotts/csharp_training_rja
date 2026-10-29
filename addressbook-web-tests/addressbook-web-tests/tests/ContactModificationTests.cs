@@ -13,6 +13,13 @@ namespace WebAddressbookTests
 		[Test]
 		public void ContactModificationTest()
 		{
+
+			// подготовка
+			// если надо, создаем
+			app.Contact.IsNeedToContactCreate();
+
+			//действие	
+
 			ContactData modContact = new ContactData("July", "Ceasare");
 			modContact.Mobile = "+7 40904";
 			modContact.Email = "mail_ya@mail.ru";

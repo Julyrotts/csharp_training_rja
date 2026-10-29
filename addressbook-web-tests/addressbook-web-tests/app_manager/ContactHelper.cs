@@ -48,7 +48,7 @@ namespace WebAddressbookTests
 		}
 		public ContactHelper InitContactModification()
 		{
-			driver.FindElement(By.XPath("//tr[5]/td[8]/a/img")).Click();
+			driver.FindElement(By.XPath("//tr[2]/td[8]/a/img")).Click();
 			return this;
 		}
 		public ContactHelper SubmitContactModification()
@@ -171,7 +171,28 @@ namespace WebAddressbookTests
 			driver.SwitchTo().Alert().Accept();
 			return this;
 		}
-		
+
+		public ContactHelper IsNeedToContactCreate()  // необходимо ли создать контакт?
+
+		{
+			if (!IsContactCreated())  // если контактов нет 
+			{
+				ContactData newCont = new ContactData("надо имя", "надо фамилию");
+				Create(newCont);  // создать хоть один контакт
+				return this;
+			}
+			return this;
+		}
+
+		public bool IsContactCreated() // есть ли хоть одна группа да/нет?
+		{
+			manager.Navigator.GoToContacts();
+			//return IsElementPresent(By.XPath("//tr[2]/td[8]/a/img"));
+			return IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input"));
+
+			
+		}
+
 
 	}
 }

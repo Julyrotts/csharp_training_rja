@@ -98,19 +98,20 @@ namespace WebAddressbookTests
 		}
 
 
-		public GroupHelper NeedToGroupCreate()
+		public GroupHelper IsNeedToGroupCreate()  // необходимо ли создать группу?
 
 		{
-			manager.Navigator.GoToGroupsPage();
-			if (! IsGroupCreated())
+			//manager.Navigator.GoToGroupsPage();
+			if (! IsGroupCreated())  // если группы нет ни одной
 			{	GroupData newgroup = new GroupData("need_group");
-				Create(newgroup); 
+				Create(newgroup);  // создать хоть одну группу
 			return this;  }
 			return this;
 		}
 
-		public bool IsGroupCreated ()
+		public bool IsGroupCreated () // есть ли хоть одна группа да/нет?
 		{
+			manager.Navigator.GoToGroupsPage();
 			return driver.Url == manager.Navigator.baseURL + "/addressbook/group.php"
 			&& IsElementPresent(By.XPath("//div[@id='content']/form/span[1]/input"));
 			//Create(GroupData group);

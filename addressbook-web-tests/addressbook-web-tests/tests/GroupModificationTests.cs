@@ -13,6 +13,13 @@ namespace WebAddressbookTests
 		[Test]
 		public void GroupModificationTest()
 		{
+
+			// подготовка
+			// если надо, создаем
+			app.Groups.IsNeedToGroupCreate();
+			
+			//действие		
+
 			GroupData newData = new GroupData("Modify_group");
 			newData.Header = "Mod_group_h";
 			newData.Footer = "Mod_group_f";
