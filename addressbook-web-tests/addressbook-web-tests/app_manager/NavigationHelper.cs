@@ -19,15 +19,24 @@ namespace WebAddressbookTests
 		}
 		public void GoToHomePage()
 		{
+			if (driver.Url == baseURL + "/addressbook/")
+			{ return; }
 			driver.Navigate().GoToUrl(baseURL + "/addressbook");
 		}
 		public void GoToGroupsPage()
 		{
-			driver.FindElement(By.LinkText("groups")).Click();
-			driver.Navigate().GoToUrl("http://localhost/addressbook/group.php");
+			if(driver.Url== baseURL + "/addressbook/group.php"
+			&& IsElementPresent(By.Name("new"))) 
+			{ return; }
+		
+		driver.FindElement(By.LinkText("groups")).Click();
+			driver.Navigate().GoToUrl(baseURL + "/addressbook/group.php");
 		}
 		public void GoToContacts()
 		{
+			if (IsElementPresent(By.Id("search_count")))
+			{ return; }
+
 			driver.FindElement(By.LinkText("home")).Click();
 		}
 

@@ -36,6 +36,10 @@ namespace WebAddressbookTests
 		public GroupHelper Modify(int p, GroupData newData)
 		{
 			manager.Navigator.GoToGroupsPage();
+			/*if (! IsGroupCreated())
+			{	GroupData newgroup = new GroupData("group1");
+				Create(newgroup);
+			return this; } */
 			SelectGroup(p);
 			InitGroupModification();
 			FillGroupForm(newData);
@@ -85,14 +89,35 @@ namespace WebAddressbookTests
 			
 			return this;
 		}
-
-		
+			
 
 		public GroupHelper ReturnToGroupsPage()
 		{
 			driver.FindElement(By.LinkText("group page")).Click();
 			return this;
 		}
+
+
+		public GroupHelper NeedToGroupCreate()
+
+		{
+			manager.Navigator.GoToGroupsPage();
+			if (! IsGroupCreated())
+			{	GroupData newgroup = new GroupData("need_group");
+				Create(newgroup); 
+			return this;  }
+			return this;
+		}
+
+		public bool IsGroupCreated ()
+		{
+			return driver.Url == manager.Navigator.baseURL + "/addressbook/group.php"
+			&& IsElementPresent(By.XPath("//div[@id='content']/form/span[1]/input"));
+			//Create(GroupData group);
+		}
+
+
+
 	}
 
 }

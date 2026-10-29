@@ -15,10 +15,19 @@ namespace WebAddressbookTests
 		[Test]
 		public void GroupRemovalTest() 
 		{
-			app.Groups.Remove(1);
+			// подготовка
+			//GroupData group = new GroupData("need group");
+			app.Groups.NeedToGroupCreate();
+			//действие		
+
+		app.Groups.Remove(1);
+
+		// проверка
 			
 			//app.Auth.Logout();
 		}
 
 	}
 }
+
+
