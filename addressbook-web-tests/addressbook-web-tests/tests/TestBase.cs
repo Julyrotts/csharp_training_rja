@@ -14,20 +14,12 @@ namespace WebAddressbookTests
 				
 
 		[SetUp]
-		public void SetupTest()   // предустановки для тестов
+		public void SetupApplicationManager()   // предустановки для тестов
 		{
-			app= new ApplicationManager();
-			app.Navigator.GoToHomePage();
-			app.Auth.Login(new AccountData("admin", "secret"));
+			app= ApplicationManager.GetInstance();
+			//app.Auth.Login(new AccountData("admin", "secret"));
 
 		}
-
-		[TearDown]
-		public void TeardownTest()
-		{
-			app.Stop();
-		}	
-		
 		
 		
 	}

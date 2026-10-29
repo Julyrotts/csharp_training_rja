@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
 	[TestFixture]
-	public class ContactCreationTests : TestBase
+	public class ContactCreationTests : AuthTestBase
 	{
 		
 		
@@ -19,7 +19,7 @@ namespace WebAddressbookTests
 			contact.Email = "rotc_ya@utisitgroup.ru";
 
 			app.Contact.Create(contact);
-			app.Auth.Logout();
+			//app.Auth.Logout();
 		}
 
 						

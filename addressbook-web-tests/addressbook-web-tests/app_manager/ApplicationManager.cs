@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.PerformanceData;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -18,8 +20,9 @@ namespace WebAddressbookTests
 		protected LoginHelper loginHelper;
 		protected GroupHelper groupHelper;
 		protected ContactHelper contactHelper;
+		private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
-		public ApplicationManager() // инициализация полей, которые перечислены выше
+		private ApplicationManager() // инициализация полей, которые перечислены выше
 		{
 			driver = new FirefoxDriver();
 			baseURL = "http://localhost";
@@ -29,6 +32,20 @@ namespace WebAddressbookTests
 			contactHelper = new ContactHelper(this);
 			//verificationErrors = new StringBuilder();
 
+		}
+
+		
+		// синглитон
+		public static ApplicationManager GetInstance()
+		{
+		if (! app.IsValueCreated) 
+		{ 
+		    ApplicationManager newInstance = new ApplicationManager();
+			newInstance.Navigator.GoToHomePage();
+			app.Value = newInstance;
+		     
+			}
+			return app.Value;
 		}
 		// блок конструкторов, чтобы методы хелперов были видны тестам, т.к. менеджер их перегородил 
 		public IWebDriver Driver { get { return driver; } }
@@ -40,8 +57,9 @@ namespace WebAddressbookTests
 		{ get { return groupHelper; } }
 		public ContactHelper Contact
 		{ get { return contactHelper; } }
-		
-		public void Stop()
+
+		// деструктор
+		~ApplicationManager()
 		{
 			try
 			{
@@ -52,7 +70,6 @@ namespace WebAddressbookTests
 				// Ignore errors if unable to close the browser
 			}
 		}
-
 
 	}
 }
