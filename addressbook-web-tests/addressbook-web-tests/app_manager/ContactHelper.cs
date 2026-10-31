@@ -144,17 +144,14 @@ namespace WebAddressbookTests
 
 			return this;
 		}
-
-	
+			
 		public ContactHelper SubmitContactCreation()
 		{
-			driver.FindElement(By.XPath("//div[@id='content']/form/input[19]")).Click();
+			driver.FindElement(By.Name("submit")).Click();
 			return this;
 		}
 		public ContactHelper SelectContact(int index)
 		{
-			//driver.FindElement(By.Id("index")).Click();
-			//driver.FindElement(By.XPath("//div[@id='content']/form/input[19]")).Click();
 			driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr["+index+"]/td/input")).Click();
 			return this;
 		}
