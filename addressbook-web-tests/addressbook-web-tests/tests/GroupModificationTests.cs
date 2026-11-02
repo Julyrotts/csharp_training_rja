@@ -24,7 +24,7 @@ namespace WebAddressbookTests
 			newData.Header = "Mod_group_h";
 			newData.Footer = "Mod_group_f";
 
-			app.Groups.Modify(1, newData);
+			app.Groups.Modify(0, newData);
 
 		}
 	}
