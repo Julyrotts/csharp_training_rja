@@ -27,7 +27,11 @@ namespace WebAddressbookTests
 		// проверка
 			List<GroupData> newGroups = app.Groups.GetGroupList();
 			oldGroups.RemoveAt(0);
-			Assert.AreEqual(oldGroups.Count, newGroups.Count);
+			oldGroups.Sort();
+			newGroups.Sort();
+			//groups.Count;
+			Assert.AreEqual(oldGroups, newGroups);
+			//Assert.AreEqual(oldGroups.Count, newGroups.Count);
 
 			//app.Auth.Logout();
 		}
