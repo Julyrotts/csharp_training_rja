@@ -23,8 +23,11 @@ namespace WebAddressbookTests
 			app.Groups.Create(group);
 
 			List <GroupData> newGroups = app.Groups.GetGroupList();
+			oldGroups.Add(group);
+			oldGroups.Sort();
+			newGroups.Sort();
 			//groups.Count;
-			Assert.AreEqual(oldGroups.Count+1, newGroups.Count);
+			Assert.AreEqual(oldGroups, newGroups);
 		}
 
 		[Test]
