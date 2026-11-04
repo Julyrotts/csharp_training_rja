@@ -314,14 +314,14 @@ namespace WebAddressbookTests
 			return Firstname == other.Firstname;
 		}
 
-		public override int GetHashCode()
+		public int GetHashCodeF()
 		{
 			return Firstname.GetHashCode();
 		}
 
 		public override string ToString()
 		{
-			return "Firstname=" + Firstname;
+			return "Firstname=" + Firstname + "   Lastname=" + Lastname;
 		}
 
 		public int CompareTo(ContactData other)
@@ -346,10 +346,8 @@ namespace WebAddressbookTests
 			return Lastname.GetHashCode();
 		}
 
-		public string ToStringL()
-		{
-			return "Lastname=" + Lastname;
-		}
+		//public string ToStringL()
+		//{	return "Lastname=" + Lastname;	}
 
 		public int CompareToL(ContactData other)
 		{
