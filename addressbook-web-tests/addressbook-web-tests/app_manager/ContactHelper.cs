@@ -26,7 +26,7 @@ namespace WebAddressbookTests
 		public ContactHelper Remove(int p)
 		{
 			manager.Navigator.GoToContacts();
-			SelectContact(p+1);
+			SelectContact(p+2);
 			RemoveContact();
 			//CloseAlert();
 			manager.Navigator.GoToContacts(); ;
@@ -36,7 +36,7 @@ namespace WebAddressbookTests
 		public ContactHelper Modify(int p, ContactData modContact)
 		{
 			manager.Navigator.GoToContacts();
-			InitContactModification(p+1);
+			InitContactModification(p+2);
 			ModifyInContact(modContact);
 			SubmitContactModification();
 			//CloseAlert();
@@ -186,6 +186,34 @@ namespace WebAddressbookTests
 			return IsElementPresent(By.XPath("//table[@id='maintable']/tbody/tr[2]/td/input"));
 
 			
+		}
+
+		public List<ContactData> GetContactList()
+		{
+			List<ContactData> contacts = new List<ContactData>();
+			manager.Navigator.GoToContacts();
+			ICollection<IWebElement> elementsFirstname = driver.FindElements(By.CssSelector("tr[name=\"entry\"]>td:nth-child(3)"));  // находит столбец с именами
+			ICollection<IWebElement> elementsLastname = driver.FindElements(By.CssSelector("tr[name=\"entry\"]>td:nth-child(2)")); // находит столбец с фамилиями
+			ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]")); // находит всю строку
+
+			//foreach (IWebElement elementF in elementsFirstname)
+			
+			foreach (IWebElement elementF in elementsFirstname)
+			{
+				
+					contacts.Add(new ContactData(elementF.Text, elementF.Text));
+				
+			}
+			int i = 0;
+			foreach (IWebElement elementL in elementsLastname)
+			{
+			contacts[i].Lastname = elementL.Text;
+				i++;
+			//contacts.Add(new ContactData(elementL.Text, elementL.Text));
+
+			}
+			
+			return contacts;
 		}
 
 

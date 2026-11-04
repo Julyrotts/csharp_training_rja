@@ -127,11 +127,11 @@ namespace WebAddressbookTests
 				groups.Add(new GroupData(element.Text));
 
 			}
-
-
 			return groups;
 			
-			}
+		}
+
+
 	}
 
 }
