@@ -19,6 +19,7 @@ namespace WebAddressbookTests
 			// подготовка
 			// если надо, создаем
 			List<GroupData> oldGroups = app.Groups.GetGroupList();
+			GroupData toBeRemoved = oldGroups[0];
 			app.Groups.IsNeedToGroupCreate();
 			//действие		
 
@@ -28,14 +29,19 @@ namespace WebAddressbookTests
 			Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
 			List<GroupData> newGroups = app.Groups.GetGroupList();
+			
 			oldGroups.RemoveAt(0);
 			oldGroups.Sort();
 			newGroups.Sort();
 			//groups.Count;
 			Assert.AreEqual(oldGroups, newGroups);
 			//Assert.AreEqual(oldGroups.Count, newGroups.Count);
+			
+			foreach (GroupData group in newGroups)
+			{
+				Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+			}
 
-			//app.Auth.Logout();
 		}
 
 	}

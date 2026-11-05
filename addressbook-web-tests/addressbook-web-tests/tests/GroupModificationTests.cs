@@ -19,6 +19,7 @@ namespace WebAddressbookTests
 			// если надо, создаем
 			app.Groups.IsNeedToGroupCreate();
 			List<GroupData> oldGroups = app.Groups.GetGroupList();
+			GroupData oldData = oldGroups[0];
 
 			//действие		
 
@@ -37,6 +38,13 @@ namespace WebAddressbookTests
 			newGroups.Sort();
 			
 			Assert.AreEqual(oldGroups, newGroups);
+
+			foreach (GroupData group in newGroups)
+			{
+				if (group.Id == oldData.Id) 
+				{ Assert.AreEqual(newData.Name, group.Name); }
+				
+			}
 
 		}
 	}
