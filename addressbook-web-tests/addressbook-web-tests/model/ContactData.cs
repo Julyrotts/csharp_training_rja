@@ -311,12 +311,14 @@ namespace WebAddressbookTests
 			{ return false; }
 			if (Object.ReferenceEquals(this, other))
 			{ return true; }
-			return Firstname == other.Firstname;
+			return (Firstname == other.Firstname) && (Lastname == other.Lastname);
 		}
 
-		public int GetHashCodeF()
+		public override int GetHashCode()
 		{
-			return Firstname.GetHashCode();
+			int hash = Firstname.GetHashCode() + Lastname.GetHashCode();
+			//return (Firstname.GetHashCode());
+			return hash;
 		}
 
 		public override string ToString()
@@ -328,33 +330,8 @@ namespace WebAddressbookTests
 		{
 			if (Object.ReferenceEquals(other, null))
 			{ return 1; }
-			return Firstname.CompareTo(other.Firstname);
-
-		}
-
-		public bool EqualsL(ContactData other)
-		{
-			if (Object.ReferenceEquals(other, null))
-			{ return false; }
-			if (Object.ReferenceEquals(this, other))
-			{ return true; }
-			return Lastname == other.Lastname;
-		}
-
-		public int GetHashCodeL()
-		{
-			return Lastname.GetHashCode();
-		}
-
-		//public string ToStringL()
-		//{	return "Lastname=" + Lastname;	}
-
-		public int CompareToL(ContactData other)
-		{
-			if (Object.ReferenceEquals(other, null))
-			{ return 1; }
-			return Lastname.CompareTo(other.Lastname);
-
+			int compare = Firstname.CompareTo(other.Firstname) + Lastname.CompareTo(other.Lastname);
+			return compare;
 		}
 
 	}
