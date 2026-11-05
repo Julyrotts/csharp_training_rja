@@ -28,6 +28,8 @@ namespace WebAddressbookTests
 			app.Contact.Modify(0, modContact);
 
 			// проверка
+			Assert.AreEqual(oldContacts.Count, app.Contact.GetContactsCount());
+
 			List<ContactData> newContacts = app.Contact.GetContactList();
 			oldContacts[0].Firstname = modContact.Firstname;
 			oldContacts[0].Lastname = modContact.Lastname;

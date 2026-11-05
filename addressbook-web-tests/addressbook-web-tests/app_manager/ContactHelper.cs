@@ -52,6 +52,7 @@ namespace WebAddressbookTests
 		public ContactHelper SubmitContactModification()
 		{
 			driver.FindElement(By.Name("update")).Click();
+			contactCache = null;
 			return this;
 		}
 
@@ -148,6 +149,7 @@ namespace WebAddressbookTests
 		public ContactHelper SubmitContactCreation()
 		{
 			driver.FindElement(By.Name("submit")).Click();
+			contactCache = null;
 			return this;
 		}
 		public ContactHelper SelectContact(int index)
@@ -159,6 +161,7 @@ namespace WebAddressbookTests
 		public ContactHelper RemoveContact()
 		{
 			driver.FindElement(By.Name("delete")).Click();
+			contactCache = null;
 			return this;
 		}
 		public ContactHelper CloseAlert()
@@ -188,32 +191,43 @@ namespace WebAddressbookTests
 			
 		}
 
+		private List<ContactData> contactCache = null;
 		public List<ContactData> GetContactList()
 		{
-			List<ContactData> contacts = new List<ContactData>();
-			manager.Navigator.GoToContacts();
-			ICollection<IWebElement> elementsFirstname = driver.FindElements(By.CssSelector("tr[name=\"entry\"]>td:nth-child(3)"));  // находит столбец с именами
-			ICollection<IWebElement> elementsLastname = driver.FindElements(By.CssSelector("tr[name=\"entry\"]>td:nth-child(2)")); // находит столбец с фамилиями
-			ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]")); // находит всю строку
-
-			//foreach (IWebElement elementF in elementsFirstname)
-			
-			foreach (IWebElement elementF in elementsFirstname)
+			if (contactCache == null)
 			{
-				
-					contacts.Add(new ContactData(elementF.Text, elementF.Text));
-				
-			}
-			int i = 0;
-			foreach (IWebElement elementL in elementsLastname)
-			{
-			contacts[i].Lastname = elementL.Text;
-				i++;
-			//contacts.Add(new ContactData(elementL.Text, elementL.Text));
+				contactCache = new List<ContactData>();
+				manager.Navigator.GoToContacts();
+				ICollection<IWebElement> elementsFirstname = driver.FindElements(By.CssSelector("tr[name=\"entry\"]>td:nth-child(3)"));  // находит столбец с именами
+				ICollection<IWebElement> elementsLastname = driver.FindElements(By.CssSelector("tr[name=\"entry\"]>td:nth-child(2)")); // находит столбец с фамилиями
+				ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name=\"entry\"]")); // находит всю строку
 
+				//foreach (IWebElement elementF in elementsFirstname)
+
+				foreach (IWebElement elementF in elementsFirstname)
+				{
+
+					contactCache.Add(new ContactData(elementF.Text, elementF.Text));
+
+				}
+				int i = 0;
+				foreach (IWebElement elementL in elementsLastname)
+				{
+					contactCache[i].Lastname = elementL.Text;
+					i++;
+					//contacts.Add(new ContactData(elementL.Text, elementL.Text));
+
+				}
 			}
-			
-			return contacts;
+				return new List<ContactData>(contactCache);		
+
+		}
+
+
+		public int GetContactsCount()  // сколько элементов в списке
+
+		{
+			return driver.FindElements(By.CssSelector("tr[name=\"entry\"]")).Count;
 		}
 
 
