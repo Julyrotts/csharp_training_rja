@@ -326,12 +326,14 @@ namespace WebAddressbookTests
 			return "Firstname=" + Firstname + "   Lastname=" + Lastname;
 		}
 
-		public int CompareTo(ContactData other)
+		public int CompareTo(ContactData other) //  сравниваем, возвращает -1 0 1
 		{
-			if (Object.ReferenceEquals(other, null))
+			if (Object.ReferenceEquals(other, null)) //  если объект равен null, будет true, надо вернуть fail
 			{ return 1; }
-			int compare = Firstname.CompareTo(other.Firstname) + Lastname.CompareTo(other.Lastname);
-			return compare;
+			if (lastname.CompareTo(other.Lastname)!=0) // если не совпало, то fail
+			 { return 1; }
+			int compare = Firstname.CompareTo(other.Firstname); // возвращаю сравнение по имени
+			return compare; // -1 0 1
 		}		
 
 	}
