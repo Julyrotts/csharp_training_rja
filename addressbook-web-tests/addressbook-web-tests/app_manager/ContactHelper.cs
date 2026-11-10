@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -283,6 +284,16 @@ namespace WebAddressbookTests
 			};
 
 		}
+
+		public int GetNumberOfSearchResults()
+		{
+			manager.Navigator.GoToContacts();
+			string numberText=driver.FindElement(By.TagName("label")).Text;
+
+			Match m = new Regex(@"\d+").Match(numberText);
+			return Int32.Parse(m.Value);
+		}
+
 
 
 	}

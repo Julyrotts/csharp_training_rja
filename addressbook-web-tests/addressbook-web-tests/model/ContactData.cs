@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -94,9 +95,7 @@ namespace WebAddressbookTests
 
 			}
 
-			set {
-				allPhones = value; 
-			}
+			set {	allPhones = value; 	}
 		} 
 
 
@@ -109,106 +108,63 @@ namespace WebAddressbookTests
 			}
 
 			set
-			{
-			 allEmails=value;
-			}
+			{ allEmails=value;	}
 		}
 		public string CleanUpPhone(string phone)
 		{
 			if (phone == null || phone == "") { return ""; }
 
+			//return Regex.Replace(phone, @"[ -()]", "") + "\r\n";
 			return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
 		}
 
 		public string Bday
 
 		{
-			get
-			{
-				return bday;
-			}
-			set
-			{
-				bday = value;
-			}
+			get	{	return bday;   }			
+			set	{	bday = value;	}
 
 		}
 		public string Bmonth
 
 		{
-			get
-			{
-				return bmonth;
-			}
-			set
-			{
-				bmonth = value;
-			}
+			get	{	return bmonth;	}
+			set	{	bmonth = value;	}
 
 		}
 		public string Byear
 
 		{
-			get
-			{
-				return byear;
-			}
-			set
-			{
-				byear = value;
-			}
+			get	{	return byear;	}
+			set	{	byear = value;	}
 
 		}
 		public string Aday
 
 		{
-			get
-			{
-				return aday;
-			}
-			set
-			{
-				aday = value;
-			}
+			get	{	return aday;	}
+			set	{	aday = value;	}
 
 		}
 		public string Amonth
 
 		{
-			get
-			{
-				return amonth;
-			}
-			set
-			{
-				amonth = value;
-			}
+			get	{	return amonth;	}
+			set	{	amonth = value;	}
 
 		}
 		public string Ayear
 
 		{
-			get
-			{
-				return ayear;
-			}
-			set
-			{
-				ayear = value;
-			}
+			get	{	return ayear;	}
+			set	{	ayear = value;	}
 
 		}
 		public string New_group
 
 		{
-			get
-			{
-				return new_group;
-			}
-			set
-			{
-				new_group = value;
-			}
+			get {	return new_group;	}
+			set	{	new_group = value;	}
 
 		}
 
@@ -236,11 +192,14 @@ namespace WebAddressbookTests
 		public int CompareTo(ContactData other) //  сравниваем, возвращает -1 0 1
 		{
 			if (Object.ReferenceEquals(other, null)) //  если объект равен null, будет true, надо вернуть fail
-			{ return 1; }
-			if (lastname.CompareTo(other.Lastname)!=0) // если не совпало, то fail
-			 { return 1; }
-			int compare = Firstname.CompareTo(other.Firstname); // возвращаю сравнение по имени
-			return compare; // -1 0 1
+			{	return 1;}
+			if (Lastname.CompareTo(other.Lastname)!=0) // если не совпало, то fail
+			 {
+				int compareL = Lastname.CompareTo(other.Lastname);
+				return compareL; // -1 1
+			}
+			int compareF = Firstname.CompareTo(other.Firstname); // возвращаю сравнение по имени
+			return compareF; // -1 0 1
 		}		
 
 	
