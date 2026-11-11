@@ -29,5 +29,26 @@ namespace WebAddressbookTests
 						
 
 		}
+
+		[Test]
+		public void ContactDetailsTest()
+		{
+
+			// подготовка
+			
+			ContactData fromDetail = app.Contact.GetContactInformationFromDetails(0);
+			ContactData fromFullForm = app.Contact.GetFullInformationFromEditForm(0);
+
+
+			// проверка
+			
+			Assert.AreEqual(fromDetail.FIO, fromFullForm.FIO);
+			Assert.AreEqual(fromDetail.ContactDetails, fromFullForm.ContactDetails);
+			
+
+
+		}
+
+
 	}
 }

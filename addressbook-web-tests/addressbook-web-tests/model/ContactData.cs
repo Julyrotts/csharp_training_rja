@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
@@ -33,6 +34,8 @@ namespace WebAddressbookTests
 		private string new_group = ""; // группа v
 		public string allPhones;
 		public string allEmails;
+		public string fio; // ФИО
+		public string contactDetails; // все о контакте
 		public ContactData(string firstname, string lastname)
 		
 			{
@@ -167,6 +170,58 @@ namespace WebAddressbookTests
 			set	{	new_group = value;	}
 
 		}
+
+
+		public string FIO  // кконструктор для ФИО - склейка
+		{
+			get
+			{
+				if (fio != null) { return fio; }
+				else { return (CleanUpFIO(Firstname) + CleanUpFIO(Middlename) + CleanUpFIO(Lastname)).Trim(); }
+
+			}
+
+			set { fio = value; }
+		}
+		public string CleanUpFIO(string fio)
+		{
+			if (fio == null || fio == "") { return ""; }
+
+			//return Regex.Replace(phone, @"[ -()]", "") + "\r\n";
+			return fio.Replace("\\r\\n", "")+ " ";
+		}
+
+		public string ContactDetails // кконструктор для подробностей - склейка
+		{
+			get
+			{
+				if (contactDetails != null) { return contactDetails; }
+				else {
+					if (Amonth != null) {
+
+						TextInfo ti = new CultureInfo("en-US", false).TextInfo;
+						Amonth = ti.ToTitleCase(Amonth);
+						 }	
+					
+
+				return (Firstname+Middlename+Lastname+Nickname+Title+Company+Address+Home+Mobile+Work+
+				Email+Email2+Email3+Homepage+Bday+Bmonth+Byear+Aday+Amonth + Ayear).Trim(); }
+
+			}
+
+			set { contactDetails = value; }
+		}
+
+		public string CleanUpDetails(string fio)
+		{
+			if (fio == null || fio == "") { return ""; }
+
+			//return Regex.Replace(phone, @"[ -()]", "") + "\r\n";
+			return fio.Replace("\\r\\n", " ");
+		}
+
+
+
 
 		public bool Equals(ContactData other)
 		{

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.BiDi.Input;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
@@ -64,6 +65,12 @@ namespace WebAddressbookTests
 			driver.FindElement(By.LinkText("add new")).Click();
 			return this;
 
+		}
+		public ContactHelper ViewContactDetails(int index)
+		{
+			//driver.FindElement(By.XPath("//tr[" + index + "]/td[7]/a/img")).Click();
+			driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].FindElement(By.TagName("a")).Click();
+			return this;
 		}
 
 		public ContactHelper FillContactForm(ContactData contact)
@@ -294,7 +301,109 @@ namespace WebAddressbookTests
 			return Int32.Parse(m.Value);
 		}
 
+		public ContactData GetContactInformationFromDetails(int index)
+		{
+			manager.Navigator.GoToContacts();
+			ViewContactDetails(0);
+
+			string fio = driver.FindElement(By.CssSelector("div#content b")).Text; // отдельно ФИО
+						
+
+			string contactDetails = driver.FindElement(By.CssSelector("div#content")).Text; // все, что есть в контенте
+			
+			string formatContactDetails = FormatContactDetails(contactDetails); // отфроматировать
+
+			return new ContactData(null, null)
+			{
+				FIO = fio,
+				ContactDetails = formatContactDetails
+
+			};
+		}
+			
+		public string FormatContactDetails (string details) // форматирование деталей, сразу полученных из блока контент
+		{
+
+			string formatContactDetails = Regex.Replace(details, @"\r\n", "");
 
 
+			// отрезать все, что после ДР
+			string indexByear = "Birth";
+			int position = formatContactDetails.IndexOf(indexByear);
+			string secondContactDetails = formatContactDetails.Substring(position); //
+			// почистить отдельно хвост
+			secondContactDetails = Regex.Replace(secondContactDetails, @"\(.*?\)", "").Replace(@".",""); // убрать все в скобках и точки
+			
+			// выделить отдельно начало
+			string firstContactDetails = Regex.Replace(formatContactDetails, @"Birth.*", "");
+			// слепить все вместе
+			formatContactDetails = firstContactDetails + secondContactDetails;
+
+			formatContactDetails = (formatContactDetails.Replace(" ", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").
+						Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "")).Trim();
+
+			//formatContactDetails = Regex.Replace(formatContactDetails, @"\(.*?\)", ""); // убрать все в скобках
+
+			return formatContactDetails; }
+
+			public ContactData GetFullInformationFromEditForm(int index)
+		{
+			manager.Navigator.GoToContacts();
+			InitContactModification(0);
+			string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+			string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+			string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+			string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+
+			string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+			string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+			string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+			
+
+			string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+			string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+			string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+			string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+			string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+			string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+
+			string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+
+			string bDay = driver.FindElement(By.Name("bday")).GetAttribute("value");
+			string bMonth =	driver.FindElement(By.Name("bmonth")).GetAttribute("value");
+			string bYear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+			string aDay = driver.FindElement(By.Name("aday")).GetAttribute("value");
+			string aMonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
+			string aYear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+			
+			return new ContactData(firstname, lastname)
+			{
+				Middlename= middlename,
+				Nickname =nickname,
+			    Company=company,
+				Address = address,
+				Title=title,
+				Home = homePhone,
+				Mobile = mobilePhone,
+				Work = workPhone,
+				Email = email1,
+				Email2 = email2,
+				Email3 = email3,
+
+				Homepage=homepage,
+				Bday = bDay,
+				Bmonth=bMonth,
+				Byear=bYear,
+				Aday=aDay,
+				Amonth=aMonth,
+				Ayear=aYear
+
+			};
+
+		}
+
+			
+			
 	}
 }
