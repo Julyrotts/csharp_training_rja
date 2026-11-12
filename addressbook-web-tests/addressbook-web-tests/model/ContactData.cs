@@ -28,10 +28,10 @@ namespace WebAddressbookTests
 		private string bday = "5"; // день рождения v
 		private string bmonth = "March"; // месяц рождения v
 		private string byear = "1987"; // год рождения v
-		private string aday = ""; // день годовщины v
-		private string amonth = ""; // месяц годовщины v
+		private string aday = "-"; // день годовщины v
+		private string amonth = "-"; // месяц годовщины v
 		private string ayear = ""; // год годовщины v
-		private string new_group = ""; // группа v
+		private string new_group = "-"; // группа v
 		public string allPhones;
 		public string allEmails;
 		public string fio; // ФИО
