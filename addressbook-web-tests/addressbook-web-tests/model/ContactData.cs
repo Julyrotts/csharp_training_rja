@@ -243,7 +243,10 @@ namespace WebAddressbookTests
 
 		public override string ToString()
 		{
-			return "Firstname=" + Firstname + "   Lastname=" + Lastname;
+			return "Firstname=" + Firstname + " Middlename=" + Middlename +  "Lastname=" + Lastname +
+			"\nNickname="+Nickname + "\nAddress=" + Address + "\nHome =" + Home + "\nMobile=" + "\nWork="+Work+
+			"\nEmail =" + Email + "\nEmail2 =" + Email2+ "\nEmail3 =" + Email3+	"\nTitle =" + Title +
+			"\nCompany =" +Company + "\nHomepage = "+ Homepage;
 		}
 
 		public int CompareTo(ContactData other) //  сравниваем, возвращает -1 0 1

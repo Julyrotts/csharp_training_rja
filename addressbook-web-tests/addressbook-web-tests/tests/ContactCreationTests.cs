@@ -10,14 +10,44 @@ namespace WebAddressbookTests
 	[TestFixture]
 	public class ContactCreationTests : AuthTestBase
 	{
+
+		public static IEnumerable<ContactData> RandomContactDataProvider()
+		{
+
+			List<ContactData> contact = new List<ContactData>();
+			for (int i = 0; i < 5; i++)
+			{
+				contact.Add(new ContactData(GenerateRandomString(30), GenerateRandomString(30))
+				{
+					Middlename = GenerateRandomString(30),
+					Nickname = GenerateRandomString(10),
+					Address = GenerateRandomString(100),
+					Home = GenerateRandomString(10),
+					Mobile = GenerateRandomString(10),
+					Work = GenerateRandomString(10),
+					Email = GenerateRandomString(10)+ "@"+GenerateRandomString(4)+"\\."+ GenerateRandomString(4),
+					Email2= GenerateRandomString(20),
+					Email3 = GenerateRandomString(20),
+					Title = GenerateRandomString(50),
+					Company = GenerateRandomString(20),
+					Homepage = GenerateRandomString(30)
+					
+				});
+
+			}
+
+			return contact;
+		}
+
+
+		[Test, TestCaseSource("RandomContactDataProvider")]
 		
-		
-		[Test]
-		public void  ContactCreationTest()
+		public void  ContactCreationTest(ContactData contact)
 		{							
-			ContactData contact = new ContactData("Myname", "Mysurname");
+			/* ContactData contact = new ContactData("Myname", "Mysurname");
 			contact.Mobile = "+79119494760";
-			contact.Email = "rotc_ya@utisitgroup.ru";
+			contact.Email = "rotc_ya@utisitgroup.ru"; */
+			
 			List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
 
 
