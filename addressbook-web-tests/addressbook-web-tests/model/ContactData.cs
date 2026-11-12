@@ -28,9 +28,9 @@ namespace WebAddressbookTests
 		private string bday = "5"; // день рождения v
 		private string bmonth = "March"; // месяц рождения v
 		private string byear = "1987"; // год рождения v
-		private string aday = "-"; // день годовщины v
-		private string amonth = "-"; // месяц годовщины v
-		private string ayear = "-"; // год годовщины v
+		private string aday = ""; // день годовщины v
+		private string amonth = ""; // месяц годовщины v
+		private string ayear = ""; // год годовщины v
 		private string new_group = ""; // группа v
 		public string allPhones;
 		public string allEmails;
@@ -204,8 +204,10 @@ namespace WebAddressbookTests
 						 }	
 					
 
-				return (Firstname+Middlename+Lastname+Nickname+Title+Company+Address+Home+Mobile+Work+
-				Email+Email2+Email3+Homepage+Bday+Bmonth+Byear+Aday+Amonth + Ayear).Trim(); }
+				return (Firstname+Middlename+Lastname+Nickname+Title+Company+Address+
+				Home+Mobile+Work+Email+Email2+Email3+Homepage+
+				Bday.Replace("-", "").Replace("0", "") + Bmonth.Replace("-", "") + Byear+
+				Aday.Replace("-", "").Replace("0", "") + Amonth.Replace("-", "") + Ayear).Trim(); }
 
 			}
 

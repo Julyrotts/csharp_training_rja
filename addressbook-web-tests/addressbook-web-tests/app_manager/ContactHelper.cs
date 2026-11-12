@@ -320,25 +320,48 @@ namespace WebAddressbookTests
 
 			};
 		}
-			
-		public string FormatContactDetails (string details) // форматирование деталей, сразу полученных из блока контент
+
+		public string FormatContactDetails(string details) // форматирование деталей, сразу полученных из блока контент
 		{
 
 			string formatContactDetails = Regex.Replace(details, @"\r\n", "");
 
 
-			// отрезать все, что после ДР
-			string indexByear = "Birth";
-			int position = formatContactDetails.IndexOf(indexByear);
-			string secondContactDetails = formatContactDetails.Substring(position); //
-			// почистить отдельно хвост
-			secondContactDetails = Regex.Replace(secondContactDetails, @"\(.*?\)", "").Replace(@".",""); // убрать все в скобках и точки
-			
-			// выделить отдельно начало
-			string firstContactDetails = Regex.Replace(formatContactDetails, @"Birth.*", "");
-			// слепить все вместе
-			formatContactDetails = firstContactDetails + secondContactDetails;
+			Match age = new Regex(@"Birth").Match(formatContactDetails); // найти, есть ли данные по ДР (возраст)
+			if (age.Success)
+			{
+				// отрезать все, что после ДР
+				string indexByear = "Birth";
+				int position = formatContactDetails.IndexOf(indexByear);
+				string secondContactDetails = formatContactDetails.Substring(position); 
+				// почистить отдельно хвост
+				secondContactDetails = Regex.Replace(secondContactDetails, @"\(.*?\)", "").Replace(@".", ""); // убрать все в скобках и точки
 
+				// выделить отдельно начало
+				string firstContactDetails = Regex.Replace(formatContactDetails, @"Birth.*", "");
+				// слепить все вместе
+				formatContactDetails = firstContactDetails + secondContactDetails;
+			}
+			else { 
+
+			Match ann = new Regex(@"Anni").Match(formatContactDetails); // найти, есть ли данные по юбилею (годы)
+				if (ann.Success)
+			{
+					// отрезать все, что после Юбилея
+					string indexAnni = "Anni";
+					int position = formatContactDetails.IndexOf(indexAnni);
+					string secondContactDetails = formatContactDetails.Substring(position);
+					// почистить отдельно хвост
+					secondContactDetails = Regex.Replace(secondContactDetails, @"\(.*?\)", "").Replace(@".", ""); // убрать все в скобках и точки
+
+					// выделить отдельно начало
+					string firstContactDetails = Regex.Replace(formatContactDetails, @"Anni.*", "");
+					// слепить все вместе
+					formatContactDetails = firstContactDetails + secondContactDetails;
+				}
+
+		}
+			
 			formatContactDetails = (formatContactDetails.Replace(" ", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").
 						Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "")).Trim();
 
