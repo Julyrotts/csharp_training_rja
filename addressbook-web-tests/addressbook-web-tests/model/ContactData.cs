@@ -36,6 +36,7 @@ namespace WebAddressbookTests
 		public string allEmails;
 		public string fio; // ФИО
 		public string contactDetails; // все о контакте
+		public ContactData() { } // беспараметрический конструктор, для генератора в файл xml
 		public ContactData(string firstname, string lastname)
 		
 			{

@@ -30,7 +30,7 @@ namespace WebAddressbookTests
 		StringBuilder builder = new StringBuilder();  // генератор строки
 		for (int i = 0; i<l; i++)
 		{
-				builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 223)));  // 223 32 коды символов в соответствии с таблицей ASCII
+				builder.Append(Convert.ToChar(65 + Convert.ToInt32(rnd.NextDouble() * 223)));  // 223 32 коды символов в соответствии с таблицей ASCII
 		}
 
 			return  builder.ToString();

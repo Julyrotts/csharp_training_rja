@@ -12,6 +12,8 @@ namespace WebAddressbookTests
 		//private string name;
 		//private string header=null;
 		//private string footer=null;
+
+		public GroupData()	{ } // беспараметрический конструктор, для генератора в файл xml
 		public GroupData(string name) 
 		{
 			Name = name;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -39,8 +40,22 @@ namespace WebAddressbookTests
 			return contact;
 		}
 
+		public static IEnumerable<ContactData> ContactDataFromFile()
+		{
+			List<ContactData> contact = new List<ContactData>();
+			string[] lines = File.ReadAllLines(@"contacts.csv");
+			foreach (string l in lines)
+			{
+				string[] parts = l.Split(',');
+				contact.Add(new ContactData(parts[0], parts[1]) { 
+				Mobile = parts[3], Email = parts[4] });
 
-		[Test, TestCaseSource("RandomContactDataProvider")]
+			}
+			return contact;
+		}
+
+
+		[Test, TestCaseSource("ContactDataFromFile")]
 		
 		public void  ContactCreationTest(ContactData contact)
 		{							
