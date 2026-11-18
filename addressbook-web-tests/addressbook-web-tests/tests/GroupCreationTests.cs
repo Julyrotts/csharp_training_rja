@@ -6,6 +6,8 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -45,12 +47,38 @@ namespace WebAddressbookTests
 
 		public static IEnumerable<GroupData> GroupDataFromXMLFile()
 		{
-			//List<GroupData> groups = new List<GroupData>();
-			//string[] lines = File.ReadAllLines(@"group.csv");
-			return (List<GroupData>) 
+			return (List<GroupData>)
 			new XmlSerializer(typeof(List<GroupData>)).
 			Deserialize(new StreamReader(@"groups.xml"));
-			
+		}
+
+		public static IEnumerable<GroupData> GroupDataFromJSONFile()
+		{			
+			return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
+		}
+
+
+		public static IEnumerable<GroupData> GroupDataFromExcelFile()
+		{
+			List<GroupData> groups = new List<GroupData>();
+			Excel.Application app = new Excel.Application();
+			app.Visible = true;
+			Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
+			Excel.Worksheet sheet = wb.ActiveSheet;
+			Excel.Range range = sheet.UsedRange;
+			for (int i = 0; i<=range.Rows.Count; i++) 
+			{
+				groups.Add(new GroupData()
+				{
+				Name = range.Cells[i,1].Value,
+				Header = range.Cells[i, 2].Value,
+				Footer = range.Cells[i, 1].Value
+				});
+			}
+			wb.Close();
+			app.Visible = false;
+			app.Quit();
+			return groups;
 		}
 
 
@@ -91,7 +119,22 @@ namespace WebAddressbookTests
 			Assert.AreEqual(oldGroups, newGroups);
 		}
 
+		[Test, TestCaseSource("GroupDataFromJsonFile")]
+		public void GroupCreationJSONTest(GroupData group)
+		{
+			List<GroupData> oldGroups = app.Groups.GetGroupList();
 
+			app.Groups.Create(group);
+
+			// блок проверок
+			Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
+			List<GroupData> newGroups = app.Groups.GetGroupList();
+			oldGroups.Add(group);
+			oldGroups.Sort();
+			newGroups.Sort();
+			Assert.AreEqual(oldGroups, newGroups);
+		}
 
 
 

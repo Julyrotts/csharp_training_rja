@@ -4,6 +4,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -48,7 +51,7 @@ namespace WebAddressbookTests
 			{
 				string[] parts = l.Split(',');
 				contact.Add(new ContactData(parts[0], parts[1]) { 
-				Mobile = parts[3], Email = parts[4] });
+				Mobile = parts[2], Email = parts[3] });
 
 			}
 			return contact;

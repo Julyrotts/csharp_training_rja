@@ -324,7 +324,8 @@ namespace WebAddressbookTests
 		public string FormatContactDetails(string details) // форматирование деталей, сразу полученных из блока контент
 		{
 
-			string formatContactDetails = Regex.Replace(details, @"\r\n", "");
+			//string formatContactDetails = Regex.Replace(details, @"\r\n", "");
+			string formatContactDetails = details;
 
 
 			Match age = new Regex(@"Birth").Match(formatContactDetails); // найти, есть ли данные по ДР (возраст)
@@ -362,7 +363,7 @@ namespace WebAddressbookTests
 
 		}
 			
-			formatContactDetails = (formatContactDetails.Replace(" ", "").Replace("H:", "").Replace("M:", "").Replace("W:", "").
+			formatContactDetails = (formatContactDetails.Replace("H:", "").Replace("M:", "").Replace("W:", "").
 						Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "")).Trim();
 
 			//formatContactDetails = Regex.Replace(formatContactDetails, @"\(.*?\)", ""); // убрать все в скобках

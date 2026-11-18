@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel;
 using WebAddressbookTests;
 
 
@@ -19,7 +21,7 @@ namespace addressbook_test_data_generators
 			//System.Console.Out.Write("Hellow, World!");
 
 			int count = Convert.ToInt32(args[0]);
-			StreamWriter writer = new StreamWriter(args[1]);
+			string filename = args[1];
 			string format = args[2];
 
 			List<GroupData> groups = new List<GroupData>();
@@ -34,15 +36,26 @@ namespace addressbook_test_data_generators
 				TestBase.GenerateRandomString(10),
 				TestBase.GenerateRandomString(10)));*/
 			}
-
-			if (format == "csv")
-			{ WriteGroupsToCsvFile(groups, writer); }
-			else if (format == "xml")
-			{ WriteGroupsToXMLFile(groups, writer); }
+			if (format == "excel")
+			{
+				WriteGroupsToExcelFile(groups, filename);
+			}
 			else
-			{ System.Console.Out.Write("Unrecognized format - " + format); }
+			{
+				StreamWriter writer = new StreamWriter(filename);
 
-			writer.Close();
+				if (format == "csv")
+				{ WriteGroupsToCsvFile(groups, writer); }
+				else if (format == "xml")
+				{ WriteGroupsToXMLFile(groups, writer); }
+				else if (format == "json")
+				{ WriteGroupsToJSONFile(groups, writer); }
+				else
+				{ System.Console.Out.Write("Unrecognized format - " + format); }
+
+				writer.Close();
+			}		
+			
 
 			
 		}
@@ -60,6 +73,37 @@ namespace addressbook_test_data_generators
 		{
 			new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
 		
+		}
+
+		static void WriteGroupsToJSONFile(List<GroupData> groups, StreamWriter writer)
+		{
+			writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
+
+		}
+
+
+		static void WriteGroupsToExcelFile(List<GroupData> groups, string filename)
+		{
+			Excel.Application app = new Excel.Application();
+			app.Visible= true;
+			Excel.Workbook wb = app.Workbooks.Add();
+			Excel.Worksheet sheet = wb.ActiveSheet;
+
+			int row = 1;
+			foreach (GroupData group in groups)
+			{
+				sheet.Cells[row, 1] = group.Name;
+				sheet.Cells[row, 2] = group.Header;
+				sheet.Cells[row, 3] = group.Footer;
+				row++;
+			}
+			
+			string fullpath = Path.Combine(Directory.GetCurrentDirectory(), filename);
+			File.Delete(fullpath);
+			wb.SaveAs(fullpath);
+			wb.Close();
+			app.Visible = false;
+			app.Quit();
 		}
 
 	}

@@ -202,25 +202,49 @@ namespace WebAddressbookTests
 
 						TextInfo ti = new CultureInfo("en-US", false).TextInfo;
 						Amonth = ti.ToTitleCase(Amonth);
-						 }	
-					
+						 }
 
-				return (Firstname+Middlename+Lastname+Nickname+Title+Company+Address+
-				Home+Mobile+Work+Email+Email2+Email3+Homepage+
-				Bday.Replace("-", "").Replace("0", "") + Bmonth.Replace("-", "") + Byear+
-				Aday.Replace("-", "").Replace("0", "") + Amonth.Replace("-", "") + Ayear).Trim(); }
+
+					/*return (Firstname+Middlename+Lastname+Nickname+Title+Company+Address+
+					Home+Mobile+Work+Email+Email2+Email3+Homepage+
+					Bday.Replace("-", "").Replace("0", "") + Bmonth.Replace("-", "") + Byear+
+					Aday.Replace("-", "").Replace("0", "") + Amonth.Replace("-", "") + Ayear).Trim(); */
+
+					string formatBdate= "";
+					string formatAdate = "";
+					string formatPhones = "";
+					string formatEmail = "";
+
+					if (Bday != "0" || Bmonth != "-" || Byear != "")
+					{ formatBdate = "\r\n" + Bday.Replace("-", "").Replace("0", "")+" " + Bmonth.Replace("-", "") + Byear; } // если что-то от ДР существует, пишем в одну строку
+
+					if (Aday != "0" || Amonth != "-" || Ayear != "")
+					{ formatAdate = "\r\n" + Aday.Replace("-", "").Replace("0", "")+" " + Amonth.Replace("-", "") + Ayear; } // если что-то от годовщины существует, пишем в одну строку
+
+					if (formatAdate != "" && formatBdate=="") { formatAdate = "\r\n" + formatAdate; } // если годовщины нет, переноса строки нет
+
+					if (Home != "" || Mobile != "" || Work != "")
+					{ formatPhones = "\r\n" + Home + "\r\n" + Mobile + "\r\n" + Work; } // если хоть 1 тел существует, блок есть
+
+					if (Email != "" || Email2 != "" || Email3 != "")
+					{ formatEmail = "\r\n" + Email + "\r\n" + Email2 + "\r\n" + Email3; } // если хоть 1 мейл существует, блок есть
+
+					return (FIO + CleanUpDetails(Nickname) + CleanUpDetails(Title) + CleanUpDetails(Company) + CleanUpDetails(Address) 
+					+ formatPhones + formatEmail + CleanUpDetails(Homepage) + formatBdate + formatAdate).Trim();
+				}
 
 			}
 
 			set { contactDetails = value; }
 		}
 
-		public string CleanUpDetails(string fio)
+		public string CleanUpDetails(string info)
 		{
-			if (fio == null || fio == "") { return ""; }
+			if (info == null || info == "") { return ""; }
 
 			//return Regex.Replace(phone, @"[ -()]", "") + "\r\n";
-			return fio.Replace("\\r\\n", " ");
+			return "\r\n" + info;
+			//return info.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
 		}
 
 
