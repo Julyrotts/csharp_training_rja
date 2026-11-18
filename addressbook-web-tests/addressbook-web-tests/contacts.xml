@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <Firstname>UHä</Firstname>
+    <Lastname>èØ</Lastname>
+    <Middlename>»¦KÈØ§ø</Middlename>
+    <Nickname>¨þÞ</Nickname>
+    <Title>ÚQ</Title>
+    <Company>²iÒ</Company>
+    <Address>ā¾Öuûăč</Address>
+    <Home>Ùe</Home>
+    <Mobile>×o·Õ</Mobile>
+    <Work>awĎÛI</Work>
+    <Email>µVg</Email>
+    <Email2>×S¥b{Ã^</Email2>
+    <Email3>ğUĜb</Email3>
+    <Homepage />
+    <AllPhones>Ùe
+×o·Õ
+awĎÛI</AllPhones>
+    <AllEmails>µVg
+×S¥b{Ã^
+ğUĜb</AllEmails>
+    <Bday>5</Bday>
+    <Bmonth>March</Bmonth>
+    <Byear>1987</Byear>
+    <Aday>-</Aday>
+    <Amonth>-</Amonth>
+    <Ayear />
+    <New_group>-</New_group>
+    <FIO>UHä »¦KÈØ§ø èØ</FIO>
+    <ContactDetails>UHä »¦KÈØ§ø èØ
+¨þÞ
+ÚQ
+²iÒ
+ā¾Öuûăč
+Ùe
+×o·Õ
+awĎÛI
+µVg
+×S¥b{Ã^
+ğUĜb
+5 March1987</ContactDetails>
+  </ContactData>
+  <ContactData>
+    <Firstname>{</Firstname>
+    <Lastname>čĖhĆĞdĝzĞx</Lastname>
+    <Middlename>]Ćl}SßĒv{</Middlename>
+    <Nickname>WBėEn¤b</Nickname>
+    <Title>DHÞ</Title>
+    <Company>Ąúñ§Îâ</Company>
+    <Address>æ§</Address>
+    <Home></Home>
+    <Mobile>qü</Mobile>
+    <Work>ã</Work>
+    <Email>ĝÛ</Email>
+    <Email2>xČÀĖXäaāgĎáaðöýb</Email2>
+    <Email3>¡ėę×¨â©`¸ÉZ</Email3>
+    <Homepage>¤</Homepage>
+    <AllPhones>
+qü
+ã</AllPhones>
+    <AllEmails>ĝÛ
+xČÀĖXäaāgĎáaðöýb
+¡ėę×¨â©`¸ÉZ</AllEmails>
+    <Bday>5</Bday>
+    <Bmonth>March</Bmonth>
+    <Byear>1987</Byear>
+    <Aday>-</Aday>
+    <Amonth>-</Amonth>
+    <Ayear />
+    <New_group>-</New_group>
+    <FIO>{ ]Ćl}SßĒv{ čĖhĆĞdĝzĞx</FIO>
+    <ContactDetails>{ ]Ćl}SßĒv{ čĖhĆĞdĝzĞx
+WBėEn¤b
+DHÞ
+Ąúñ§Îâ
+æ§
+
+qü
+ã
+ĝÛ
+xČÀĖXäaāgĎáaðöýb
+¡ėę×¨â©`¸ÉZ
+¤
+5 March1987</ContactDetails>
+  </ContactData>
+</ArrayOfContactData>

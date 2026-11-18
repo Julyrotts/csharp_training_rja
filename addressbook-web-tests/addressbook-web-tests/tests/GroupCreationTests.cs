@@ -119,7 +119,7 @@ namespace WebAddressbookTests
 			Assert.AreEqual(oldGroups, newGroups);
 		}
 
-		[Test, TestCaseSource("GroupDataFromJsonFile")]
+		[Test, TestCaseSource("GroupDataFromJSONFile")]
 		public void GroupCreationJSONTest(GroupData group)
 		{
 			List<GroupData> oldGroups = app.Groups.GetGroupList();

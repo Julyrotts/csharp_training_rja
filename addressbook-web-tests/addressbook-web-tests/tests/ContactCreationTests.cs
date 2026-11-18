@@ -43,7 +43,7 @@ namespace WebAddressbookTests
 			return contact;
 		}
 
-		public static IEnumerable<ContactData> ContactDataFromFile()
+		public static IEnumerable<ContactData> ContactDataFromCSVFile()
 		{
 			List<ContactData> contact = new List<ContactData>();
 			string[] lines = File.ReadAllLines(@"contacts.csv");
@@ -57,10 +57,22 @@ namespace WebAddressbookTests
 			return contact;
 		}
 
+		public static IEnumerable<ContactData> ContactDataFromXMLFile()
+		{
+			return (List<ContactData>)
+			new XmlSerializer(typeof(List<ContactData>)).
+			Deserialize(new StreamReader(@"contacts.xml"));
+		}
 
-		[Test, TestCaseSource("ContactDataFromFile")]
+		public static IEnumerable<ContactData> ContactDataFromJSONFile()
+		{
+			return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
+		}
+
+				
+		[Test, TestCaseSource("ContactDataFromCSVFile")]
 		
-		public void  ContactCreationTest(ContactData contact)
+		public void  ContactCreationCSVTest(ContactData contact)
 		{							
 			/* ContactData contact = new ContactData("Myname", "Mysurname");
 			contact.Mobile = "+79119494760";
@@ -79,11 +91,55 @@ namespace WebAddressbookTests
 			oldContacts.Add(contact);
 			oldContacts.Sort();
 			newContacts.Sort();
-			//groups.Count;
+			//Contact.Count;
 			Assert.AreEqual(oldContacts, newContacts);
 			//Assert.AreEqual(oldContacts.Count, newContacts.Count);
 
 		}
+
+
+		[Test, TestCaseSource("ContactDataFromXMLFile")]
+
+		public void ContactCreationXMLTest(ContactData contact)
+		{
+			List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
+
+			app.Contact.Create(contact);
+			//app.Auth.Logout();
+
+			// проверка
+			Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactsCount());
+
+			List<ContactData> newContacts = app.Contact.GetContactList();
+			oldContacts.Add(contact);
+			oldContacts.Sort();
+			newContacts.Sort();
+			
+			Assert.AreEqual(oldContacts, newContacts);
+			
+		}
+
+		[Test, TestCaseSource("ContactDataFromJSONFile")]
+
+		public void ContactCreationJSONTest(ContactData contact)
+		{
+			List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
+
+
+			app.Contact.Create(contact);
+			
+			// проверка
+			Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactsCount());
+
+			List<ContactData> newContacts = app.Contact.GetContactList();
+			oldContacts.Add(contact);
+			oldContacts.Sort();
+			newContacts.Sort();
+			
+			Assert.AreEqual(oldContacts, newContacts);
+			
+		}
+
 
 
 	}
