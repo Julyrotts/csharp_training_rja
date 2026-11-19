@@ -329,17 +329,21 @@ namespace WebAddressbookTests
 
 
 			Match age = new Regex(@"Birth").Match(formatContactDetails); // найти, есть ли данные по ДР (возраст)
-			if (age.Success)
+			if (age.Success) // совпадения
 			{
 				// отрезать все, что после ДР
+				
 				string indexByear = "Birth";
 				int position = formatContactDetails.IndexOf(indexByear);
+				// найти часть строки с датами
 				string secondContactDetails = formatContactDetails.Substring(position); 
 				// почистить отдельно хвост
 				secondContactDetails = Regex.Replace(secondContactDetails, @"\(.*?\)", "").Replace(@".", ""); // убрать все в скобках и точки
 
 				// выделить отдельно начало
-				string firstContactDetails = Regex.Replace(formatContactDetails, @"Birth.*", "");
+				//string firstContactDetails = Regex.Replace(formatContactDetails, @"Birth.*", "");
+				string firstContactDetails = formatContactDetails.Substring(0, position);
+
 				// слепить все вместе
 				formatContactDetails = firstContactDetails + secondContactDetails;
 			}
@@ -365,8 +369,7 @@ namespace WebAddressbookTests
 			
 			formatContactDetails = (formatContactDetails.Replace("H:", "").Replace("M:", "").Replace("W:", "").
 						Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "")).Trim();
-
-			//formatContactDetails = Regex.Replace(formatContactDetails, @"\(.*?\)", ""); // убрать все в скобках
+			
 
 			return formatContactDetails; }
 

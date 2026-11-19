@@ -44,8 +44,6 @@ namespace WebAddressbookTests
 			
 			Assert.AreEqual(fromDetail.FIO, fromFullForm.FIO);
 			Assert.AreEqual(fromDetail.ContactDetails, fromFullForm.ContactDetails);
-			
-
 
 		}
 

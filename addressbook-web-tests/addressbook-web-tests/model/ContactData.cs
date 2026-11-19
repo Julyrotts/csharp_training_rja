@@ -204,7 +204,6 @@ namespace WebAddressbookTests
 						Amonth = ti.ToTitleCase(Amonth);
 						 }
 
-
 					/*return (Firstname+Middlename+Lastname+Nickname+Title+Company+Address+
 					Home+Mobile+Work+Email+Email2+Email3+Homepage+
 					Bday.Replace("-", "").Replace("0", "") + Bmonth.Replace("-", "") + Byear+
@@ -220,14 +219,15 @@ namespace WebAddressbookTests
 
 					if (Aday != "0" || Amonth != "-" || Ayear != "")
 					{ formatAdate = "\r\n" + Aday.Replace("-", "").Replace("0", "")+" " + Amonth.Replace("-", "") + Ayear; } // если что-то от годовщины существует, пишем в одну строку
-
-					if (formatAdate != "" && formatBdate=="") { formatAdate = "\r\n" + formatAdate; } // если годовщины нет, переноса строки нет
-
+					
 					if (Home != "" || Mobile != "" || Work != "")
 					{ formatPhones = "\r\n" + Home + "\r\n" + Mobile + "\r\n" + Work; } // если хоть 1 тел существует, блок есть
 
 					if (Email != "" || Email2 != "" || Email3 != "")
 					{ formatEmail = "\r\n" + Email + "\r\n" + Email2 + "\r\n" + Email3; } // если хоть 1 мейл существует, блок есть
+
+					if (formatPhones=="" && (formatEmail!="" || Homepage!="" || formatBdate!=""|| formatAdate!=""))
+					{ formatPhones = "\r\n"; }
 
 					return (FIO + CleanUpDetails(Nickname) + CleanUpDetails(Title) + CleanUpDetails(Company) + CleanUpDetails(Address) 
 					+ formatPhones + formatEmail + CleanUpDetails(Homepage) + formatBdate + formatAdate).Trim();
@@ -240,11 +240,8 @@ namespace WebAddressbookTests
 
 		public string CleanUpDetails(string info)
 		{
-			if (info == null || info == "") { return ""; }
-
-			//return Regex.Replace(phone, @"[ -()]", "") + "\r\n";
-			return "\r\n" + info;
-			//return info.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+			if (info == null || info == "") { return ""; }			
+			return "\r\n" + info;			
 		}
 
 
@@ -262,7 +259,6 @@ namespace WebAddressbookTests
 		public override int GetHashCode()
 		{
 			int hash = Firstname.GetHashCode()+ Lastname.GetHashCode();
-			//return (Firstname.GetHashCode());
 			return hash;
 		}
 
