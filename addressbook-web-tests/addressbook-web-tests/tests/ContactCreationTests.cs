@@ -6,8 +6,10 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Linq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using LinqToDB;
 
 namespace WebAddressbookTests
 {

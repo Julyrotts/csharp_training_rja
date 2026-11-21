@@ -6,9 +6,11 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+	[Table(Name = "addressbook")]
 	public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 	{
 		private string firstname; // имя v		

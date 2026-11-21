@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+
+[Table(Name = "group_list")]
 	public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
 	{
 		//private string name;
@@ -18,9 +21,16 @@ namespace WebAddressbookTests
 		{
 			Name = name;
 		}
-		public string Name { get; set; }		
+		[Column (Name="group_name"), NotNull]		
+		public string Name { get; set; }
+
+		[Column(Name = "group_header"), NotNull]
 		public string Header { get; set; }
+
+		[Column(Name = "group_footer"), NotNull]
 		public string Footer { get; set; }
+
+		[Column(Name = "group_id"), PrimaryKey, Identity, NotNull]
 		public string Id { get; set; }
 
 		public bool Equals (GroupData other)

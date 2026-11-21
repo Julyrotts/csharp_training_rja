@@ -6,9 +6,11 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Linq;
 using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
 using NUnit.Framework;
+using LinqToDB;
 
 namespace WebAddressbookTests
 {
@@ -161,6 +163,28 @@ namespace WebAddressbookTests
 			Assert.AreEqual(oldGroups, newGroups);
 			//app.Auth.Logout();
 		}
+
+
+		[Test]
+		public void TestDBConnectivity()
+		{
+		DateTime start = DateTime.Now;			
+		List<GroupData> groupDataFromUI = app.Groups.GetGroupList();
+		DateTime end = DateTime.Now;
+			System.Console.Out.Write(end.Subtract(start)+ "\r\n");
+			//System.Console.Out.Writeline(end.Subtract(start));
+			//Console.Writeline(end.Subtract(start));
+
+
+			start = DateTime.Now;
+			AddressbookDB db = new AddressbookDB();
+		List<GroupData> GroupDataFromDB = (from g in db.Groups select g).ToList();
+		db.Close();
+			end = DateTime.Now;
+			System.Console.Out.Write(end.Subtract(start));
+
+		}
+
 
 	}
 }
