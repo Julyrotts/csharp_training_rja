@@ -177,9 +177,8 @@ namespace WebAddressbookTests
 
 
 			start = DateTime.Now;
-			AddressbookDB db = new AddressbookDB();
-		List<GroupData> GroupDataFromDB = (from g in db.Groups select g).ToList();
-		db.Close();
+
+			List<GroupData> GroupDataFromDB = GroupData.GetAll();
 			end = DateTime.Now;
 			System.Console.Out.Write(end.Subtract(start));
 

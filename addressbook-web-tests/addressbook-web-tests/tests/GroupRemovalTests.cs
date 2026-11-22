@@ -29,7 +29,7 @@ namespace WebAddressbookTests
 			Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
 			List<GroupData> newGroups = app.Groups.GetGroupList();
-			
+
 			oldGroups.RemoveAt(0);
 			oldGroups.Sort();
 			newGroups.Sort();
@@ -37,6 +37,37 @@ namespace WebAddressbookTests
 			Assert.AreEqual(oldGroups, newGroups);
 			//Assert.AreEqual(oldGroups.Count, newGroups.Count);
 			
+			foreach (GroupData group in newGroups)
+			{
+				Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+			}
+
+		}
+
+		[Test]
+		public void GroupRemovalDBTest()
+		{
+			// подготовка
+			// если надо, создаем
+			List<GroupData> oldGroups = GroupData.GetAll();
+			GroupData toBeRemoved = oldGroups[0];
+			app.Groups.IsNeedToGroupCreate();
+			//действие		
+
+			app.Groups.Remove(toBeRemoved);
+
+			// проверка
+			Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
+
+			List<GroupData> newGroups = GroupData.GetAll();
+
+			oldGroups.RemoveAt(0);
+			oldGroups.Sort();
+			newGroups.Sort();
+			//groups.Count;
+			Assert.AreEqual(oldGroups, newGroups);
+			//Assert.AreEqual(oldGroups.Count, newGroups.Count);
+
 			foreach (GroupData group in newGroups)
 			{
 				Assert.AreNotEqual(group.Id, toBeRemoved.Id);
