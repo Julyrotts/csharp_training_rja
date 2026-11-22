@@ -124,14 +124,14 @@ namespace WebAddressbookTests
 		[Test, TestCaseSource("GroupDataFromJSONFile")]
 		public void GroupCreationJSONTest(GroupData group)
 		{
-			List<GroupData> oldGroups = app.Groups.GetGroupList();
+			List<GroupData> oldGroups = GroupData.GetAll(); 
 
 			app.Groups.Create(group);
 
 			// блок проверок
 			Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-			List<GroupData> newGroups = app.Groups.GetGroupList();
+			List<GroupData> newGroups = GroupData.GetAll(); 
 			oldGroups.Add(group);
 			oldGroups.Sort();
 			newGroups.Sort();

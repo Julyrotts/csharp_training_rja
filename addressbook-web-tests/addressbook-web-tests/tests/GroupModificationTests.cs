@@ -18,7 +18,7 @@ namespace WebAddressbookTests
 			// подготовка
 			// если надо, создаем
 			app.Groups.IsNeedToGroupCreate();
-			List<GroupData> oldGroups = app.Groups.GetGroupList();
+			List<GroupData> oldGroups = GroupData.GetAll(); 
 			GroupData oldData = oldGroups[0];
 
 			//действие		
@@ -27,12 +27,12 @@ namespace WebAddressbookTests
 			newData.Header = "Mod_group_h";
 			newData.Footer = "Mod_group_f";
 
-			app.Groups.Modify(0, newData);
+			app.Groups.Modify(oldData, newData);
 
 			// проверка
 			Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-			List<GroupData> newGroups = app.Groups.GetGroupList();
+			List<GroupData> newGroups = GroupData.GetAll();
 			oldGroups[0].Name= newData.Name;
 			oldGroups.Sort();
 			newGroups.Sort();
