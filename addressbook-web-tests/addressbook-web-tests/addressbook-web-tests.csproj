@@ -266,6 +266,7 @@
     <Compile Include="app_manager\ApplicationManager.cs" />
     <Compile Include="model\AddressbookDB.cs" />
     <Compile Include="model\ContactData.cs" />
+    <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="app_manager\GroupHelper.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="app_manager\HelperBase.cs" />
     <Compile Include="app_manager\LoginHelper.cs" />
     <Compile Include="app_manager\NavigationHelper.cs" />
+    <Compile Include="tests\GroupTestBase.cs" />
     <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

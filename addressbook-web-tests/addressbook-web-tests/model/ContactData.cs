@@ -13,7 +13,14 @@ namespace WebAddressbookTests
 	[Table(Name = "addressbook")]
 	public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 	{
-		private string firstname; // имя v		
+		[Column(Name = "id"), NotNull, PrimaryKey]
+
+		public string  Id { get; set; }
+
+		[Column(Name = "firstname")]
+		private string firstname; // имя v	
+								 
+		[Column(Name = "lastname")]	
 		private string lastname; // фамилия v
 		//private string middlename = ""; // отчество v
 		//private string nickname = ""; // ник v
@@ -217,10 +224,10 @@ namespace WebAddressbookTests
 					string formatEmail = "";
 
 					if (Bday != "0" || Bmonth != "-" || Byear != "")
-					{ formatBdate = "\r\n" + Bday.Replace("-", "").Replace("0", "")+" " + Bmonth.Replace("-", "") + Byear; } // если что-то от ДР существует, пишем в одну строку
+					{ formatBdate = "\r\n" + "Birthday"+ Bday.Replace("-", "").Replace("0", "")+" " + Bmonth.Replace("-", "") + Byear; } // если что-то от ДР существует, пишем в одну строку
 
 					if (Aday != "0" || Amonth != "-" || Ayear != "")
-					{ formatAdate = "\r\n" + Aday.Replace("-", "").Replace("0", "")+" " + Amonth.Replace("-", "") + Ayear; } // если что-то от годовщины существует, пишем в одну строку
+					{ formatAdate = "\r\n" + "Anniversary" + Aday.Replace("-", "").Replace("0", "")+" " + Amonth.Replace("-", "") + Ayear; } // если что-то от годовщины существует, пишем в одну строку
 					
 					if (Home != "" || Mobile != "" || Work != "")
 					{ formatPhones = "\r\n" + Home + "\r\n" + Mobile + "\r\n" + Work; } // если хоть 1 тел существует, блок есть
@@ -283,9 +290,34 @@ namespace WebAddressbookTests
 			}
 			int compareF = Firstname.CompareTo(other.Firstname); // возвращаю сравнение по имени
 			return compareF; // -1 0 1
-		}		
+		}
 
-	
+
+
+		public int Age(DateTime birthDate, DateTime referenceDate)
+		{
+			// Если referenceDate не передали, берём сегодняшнюю дату
+			referenceDate = DateTime.Today;
+
+			// Проверяем, не может ли дата рождения быть в будущем
+			if (referenceDate < birthDate)
+			{
+				throw new ArgumentException("Дата рождения не может быть в будущем");
+			}
+
+			// Вычисляем разницу в годах
+			int age = referenceDate.Year - birthDate.Year;
+
+			// Корректируем результат: если день рождения ещё не наступил в этом году, уменьшаем возраст на 1
+			if (referenceDate.Month < birthDate.Month ||
+				(referenceDate.Month == birthDate.Month && referenceDate.Day < birthDate.Day))
+			{
+				age--;
+			}
+
+			return age;
+		}
+
 
 	}
 }

@@ -15,7 +15,7 @@ using LinqToDB;
 namespace WebAddressbookTests
 {
 	[TestFixture]
-	public class GroupCreationTests : AuthTestBase
+	public class GroupCreationTests : GroupTestBase
 	{	
 
 	public static IEnumerable<GroupData> RandomGroupDataProvider()
@@ -180,7 +180,11 @@ namespace WebAddressbookTests
 
 			List<GroupData> GroupDataFromDB = GroupData.GetAll();
 			end = DateTime.Now;
-			System.Console.Out.Write(end.Subtract(start));
+			System.Console.Out.Write(end.Subtract(start) + "\r\n");
+
+			foreach (ContactData gcontact in GroupData.GetAll()[0].GetContacts() )
+
+			{ System.Console.Out.Write(gcontact + "\r\n"); }
 
 		}
 
