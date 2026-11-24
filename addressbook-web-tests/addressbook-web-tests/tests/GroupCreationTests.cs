@@ -163,30 +163,7 @@ namespace WebAddressbookTests
 			Assert.AreEqual(oldGroups, newGroups);
 			//app.Auth.Logout();
 		}
-
-
-		[Test]
-		public void TestDBConnectivity()
-		{
-		DateTime start = DateTime.Now;			
-		List<GroupData> groupDataFromUI = app.Groups.GetGroupList();
-		DateTime end = DateTime.Now;
-			System.Console.Out.Write(end.Subtract(start)+ "\r\n");
-			//System.Console.Out.Writeline(end.Subtract(start));
-			//Console.Writeline(end.Subtract(start));
-
-
-			start = DateTime.Now;
-
-			List<GroupData> GroupDataFromDB = GroupData.GetAll();
-			end = DateTime.Now;
-			System.Console.Out.Write(end.Subtract(start) + "\r\n");
-
-			foreach (ContactData gcontact in GroupData.GetAll()[0].GetContacts() )
-
-			{ System.Console.Out.Write(gcontact + "\r\n"); }
-
-		}
+		
 
 
 	}

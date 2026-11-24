@@ -8,6 +8,7 @@ using System.Web;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi.Input;
+using OpenQA.Selenium.DevTools.V153.Network;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
@@ -201,6 +202,39 @@ namespace WebAddressbookTests
 
 		}
 
+		public void AddContactToGroup(ContactData contact, GroupData group)  // добавить контакт в группу
+
+		{
+			manager.Navigator.GoToContacts();
+			ClearGroupFilter();
+			SelectContact(contact.Id);
+			SelectGroupToAdd(group.Name);
+			CommitAddingContactToGroup();
+			new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count>0);
+
+			//return this;
+		}
+
+		public void CommitAddingContactToGroup()
+		{
+			driver.FindElement(By.Name("add")).Click();
+		}
+
+		public void SelectGroupToAdd(string name)
+		{
+			new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+		}
+
+		public void SelectContact(string contactId)
+		{
+			driver.FindElement(By.Id(contactId)).Click();
+		
+		}
+		public void ClearGroupFilter()
+		{
+			new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+		}
+
 		private List<ContactData> contactCache = null;
 		public List<ContactData> GetContactList()
 		{
@@ -239,6 +273,9 @@ namespace WebAddressbookTests
 		{
 			return driver.FindElements(By.CssSelector("tr[name=\"entry\"]")).Count;
 		}
+				
+		
+
 
 		public ContactData GetContactInformationFromTable(int index)
 		{
@@ -368,7 +405,7 @@ namespace WebAddressbookTests
 		}
 			
 			formatContactDetails = (formatContactDetails.Replace("H:", "").Replace("M:", "").Replace("W:", "").
-						Replace("Homepage:", "").Replace("Birthday", "").Replace("Anniversary", "")).Trim();
+						Replace("Homepage:", "")).Trim();
 			
 
 			return formatContactDetails; }

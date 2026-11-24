@@ -269,6 +269,7 @@
     <Compile Include="model\GroupContactRelation.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="app_manager\GroupHelper.cs" />
+    <Compile Include="tests\AddingContactToGroupTests.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="tests\GroupCreationTests.cs" />
     <Compile Include="tests\ContactCreationTests.cs" />
     <Compile Include="tests\ContactInformationTests.cs" />
+    <Compile Include="tests\TestDBConnectivity.cs" />
     <Compile Include="XDoc.Html2PDF\XDoc.Html2PDF.Dummy.cs" />
   </ItemGroup>
   <ItemGroup>

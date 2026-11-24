@@ -13,14 +13,11 @@ namespace WebAddressbookTests
 	[Table(Name = "addressbook")]
 	public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
 	{
-		[Column(Name = "id"), NotNull, PrimaryKey]
+		[Column (Name = "id"), NotNull, PrimaryKey]
 
 		public string  Id { get; set; }
 
-		[Column(Name = "firstname")]
-		private string firstname; // имя v	
-								 
-		[Column(Name = "lastname")]	
+		private string firstname; // имя v			
 		private string lastname; // фамилия v
 		//private string middlename = ""; // отчество v
 		//private string nickname = ""; // ник v
@@ -45,6 +42,8 @@ namespace WebAddressbookTests
 		public string allEmails;
 		public string fio; // ФИО
 		public string contactDetails; // все о контакте
+		[Column (Name="deprecated")]
+		public string Deprecated { get; set; } // удален или нет в БД
 		public ContactData() { } // беспараметрический конструктор, для генератора в файл xml
 		public ContactData(string firstname, string lastname)
 		
@@ -52,6 +51,8 @@ namespace WebAddressbookTests
 				this.firstname = firstname;
 				this.lastname = lastname;
 			}
+
+		[Column(Name = "firstname")]
 		public string Firstname
 		{
 			get
@@ -64,6 +65,7 @@ namespace WebAddressbookTests
 			}
 
 		}
+		[Column(Name = "lastname")]
 		public string Lastname
 		{
 			get
@@ -292,6 +294,14 @@ namespace WebAddressbookTests
 			return compareF; // -1 0 1
 		}
 
+
+
+		public static List<ContactData> GetAll()
+		{
+			using (AddressbookDB db = new AddressbookDB()) 
+			{ return (from c in db.Contact.Where(x=> x.Deprecated == null) select c).ToList(); }
+			//{ return (from c in db.Contact select c).ToList(); }
+		}
 
 
 		public int Age(DateTime birthDate, DateTime referenceDate)
