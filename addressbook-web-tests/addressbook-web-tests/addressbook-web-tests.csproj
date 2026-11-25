@@ -281,6 +281,7 @@
     <Compile Include="app_manager\NavigationHelper.cs" />
     <Compile Include="tests\GroupTestBase.cs" />
     <Compile Include="tests\LoginTests.cs" />
+    <Compile Include="tests\RemovingContactFromGroup.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\GroupCreationTests.cs" />

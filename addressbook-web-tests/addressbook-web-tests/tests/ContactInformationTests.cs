@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySqlX.XDevAPI.Relational;
 using NUnit.Framework;
+using ZstdSharp.Unsafe;
 
 namespace WebAddressbookTests
 {
@@ -17,8 +19,15 @@ namespace WebAddressbookTests
 			// подготовка
 			// если надо, создаем
 			app.Contact.IsNeedToContactCreate();
+
+			List<ContactData> tableContacts = ContactData.GetAll();
+			ContactData tcontact = tableContacts[0]; 
+
 			ContactData fromTable = app.Contact.GetContactInformationFromTable(0);
 			ContactData fromForm = app.Contact.GetContactInformationFromEditForm(0);
+
+			//ContactData fromTable = app.Contact.GetContactInformationFromTable(tcontact);
+			//ContactData fromForm = app.Contact.GetContactInformationFromEditForm(tcontact);
 
 
 			// проверка
@@ -35,8 +44,10 @@ namespace WebAddressbookTests
 		{
 
 			// подготовка
-			
-			ContactData fromDetail = app.Contact.GetContactInformationFromDetails(0);
+			List<ContactData> tableContacts = ContactData.GetAll();
+			ContactData tcontact = tableContacts[0];
+
+			ContactData fromDetail = app.Contact.GetContactInformationFromDetails(tcontact.Id);
 			ContactData fromFullForm = app.Contact.GetFullInformationFromEditForm(0);
 
 
