@@ -14,7 +14,7 @@ using LinqToDB;
 namespace WebAddressbookTests
 {
 	[TestFixture]
-	public class ContactCreationTests : AuthTestBase
+	public class ContactCreationTests : ContactTestBase
 	{
 
 		public static IEnumerable<ContactData> RandomContactDataProvider()
@@ -72,7 +72,7 @@ namespace WebAddressbookTests
 		}
 
 				
-		[Test, TestCaseSource("ContactDataFromCSVFile")]
+		[Test, TestCaseSource("ContactDataFromCSVFile")] // оставлен без связи с БД для самостоятельных экспериментов
 		
 		public void  ContactCreationCSVTest(ContactData contact)
 		{							
@@ -104,15 +104,17 @@ namespace WebAddressbookTests
 
 		public void ContactCreationXMLTest(ContactData contact)
 		{
-			List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
-
+			// получить начальный список контактов
+			//List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
+			List<ContactData> oldContacts = ContactData.GetAll();
 			app.Contact.Create(contact);
 			//app.Auth.Logout();
 
 			// проверка
 			Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactsCount());
 
-			List<ContactData> newContacts = app.Contact.GetContactList();
+			//List<ContactData> newContacts = app.Contact.GetContactList();
+			List<ContactData> newContacts = ContactData.GetAll(); // получить new список контактов
 			oldContacts.Add(contact);
 			oldContacts.Sort();
 			newContacts.Sort();
@@ -125,15 +127,17 @@ namespace WebAddressbookTests
 
 		public void ContactCreationJSONTest(ContactData contact)
 		{
-			List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
-
+			// получить начальный список контактов
+			//List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
+			List<ContactData> oldContacts = ContactData.GetAll();
 
 			app.Contact.Create(contact);
 			
 			// проверка
 			Assert.AreEqual(oldContacts.Count + 1, app.Contact.GetContactsCount());
 
-			List<ContactData> newContacts = app.Contact.GetContactList();
+			//List<ContactData> newContacts = app.Contact.GetContactList();
+			List<ContactData> newContacts = ContactData.GetAll(); // получить new список контактов
 			oldContacts.Add(contact);
 			oldContacts.Sort();
 			newContacts.Sort();

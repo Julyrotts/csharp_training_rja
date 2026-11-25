@@ -37,10 +37,30 @@ namespace WebAddressbookTests
 
 			return this;
 		}
+		public ContactHelper Remove(ContactData contact)
+		{
+			manager.Navigator.GoToContacts();
+			SelectContact(contact.Id);
+			RemoveContact();
+			manager.Navigator.GoToContacts(); ;
+			return this;
+		}
 		public ContactHelper Modify(int p, ContactData modContact)
 		{
 			manager.Navigator.GoToContacts();
 			InitContactModification(p);
+			ModifyInContact(modContact);
+			SubmitContactModification();
+			//CloseAlert();
+			manager.Navigator.GoToContacts();
+
+			return this;
+		}
+
+		public ContactHelper Modify(ContactData contact, ContactData modContact)
+		{
+			manager.Navigator.GoToContacts();
+			InitContactModification(contact.Id);
 			ModifyInContact(modContact);
 			SubmitContactModification();
 			//CloseAlert();
@@ -54,6 +74,12 @@ namespace WebAddressbookTests
 			driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[7].FindElement(By.TagName("a")).Click();
 			return this;
 		}
+		public ContactHelper InitContactModification(string contactId)
+		{
+			string hrefPart = "edit.php?id="+ contactId;
+			driver.FindElement(By.CssSelector("a[href*='" + hrefPart + "']")).Click();
+			return this;		} 
+
 		public ContactHelper SubmitContactModification()
 		{
 			driver.FindElement(By.Name("update")).Click();
@@ -175,6 +201,8 @@ namespace WebAddressbookTests
 			contactCache = null;
 			return this;
 		}
+		
+
 		public ContactHelper CloseAlert()
 		{
 			driver.SwitchTo().Alert().Accept();

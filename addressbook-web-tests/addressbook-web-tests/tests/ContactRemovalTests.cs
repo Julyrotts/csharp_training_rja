@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
 	[TestFixture]
-	public class ContactRemovalTests : AuthTestBase
+	public class ContactRemovalTests : ContactTestBase
 	{
 
 
@@ -20,26 +20,29 @@ namespace WebAddressbookTests
 			// подготовка
 			// если надо, создаем
 			app.Contact.IsNeedToContactCreate();
-			List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
+			//List<ContactData> oldContacts = app.Contact.GetContactList(); // получить начальный список контактов
+			List<ContactData> oldContacts = ContactData.GetAll();
+			ContactData toBeRemoved = oldContacts[0];
 
 			//действие			
 
-			app.Contact.Remove(0);
+			//app.Contact.Remove(0);
+			app.Contact.Remove(toBeRemoved);
 
 			// проверка
 			Assert.AreEqual(oldContacts.Count-1, app.Contact.GetContactsCount());
 
-			List<ContactData> newContacts = app.Contact.GetContactList();
+			//List<ContactData> newContacts = app.Contact.GetContactList();
+			List<ContactData> newContacts = ContactData.GetAll();
+
 			oldContacts.RemoveAt(0);
 			oldContacts.Sort();
 			newContacts.Sort();
-			//groups.Count;
+			
 			Assert.AreEqual(oldContacts, newContacts);
 			//Assert.AreEqual(oldContacts.Count, newContacts.Count);
 
 
-
-			//app.Auth.Logout();
 		}
 
 	}

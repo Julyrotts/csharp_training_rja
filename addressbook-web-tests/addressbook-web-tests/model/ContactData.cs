@@ -16,6 +16,14 @@ namespace WebAddressbookTests
 		[Column (Name = "id"), NotNull, PrimaryKey]
 
 		public string  Id { get; set; }
+		public int IntId
+		{
+			get		
+			{ int IntId = Int32.Parse(Id);
+			return IntId;}
+		
+			set { IntId = value; }
+		}
 
 		private string firstname; // имя v			
 		private string lastname; // фамилия v
@@ -78,28 +86,40 @@ namespace WebAddressbookTests
 			}
 		}
 
+		[Column(Name = "middlename")]
 		public string Middlename { get; set; }
-				
+
+		[Column(Name = "nickname")]
 		public string Nickname { get; set; }
 
+		[Column(Name = "title")]
 		public string Title { get; set; }
 
+		[Column(Name = "company")]
 		public string Company { get; set; }
 
+		[Column(Name = "address")]
 		public string Address { get; set; }
 
+		[Column(Name = "home")]
 		public string Home { get; set; }
 
+		[Column(Name = "mobile")]
 		public string Mobile { get; set; }
 
+		[Column(Name = "work")]
 		public string Work { get; set; }
 
+		[Column(Name = "email")]
 		public string Email { get; set; }
 
+		[Column(Name = "email2")]
 		public string Email2 { get; set; }
 
+		[Column(Name = "email3")]
 		public string Email3 { get; set; }
 
+		[Column(Name = "homepage")]
 		public string Homepage { get; set; }
 
 		public string AllPhones {
@@ -133,6 +153,7 @@ namespace WebAddressbookTests
 			return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
 		}
 
+		[Column(Name = "bday")]
 		public string Bday
 
 		{
@@ -140,6 +161,7 @@ namespace WebAddressbookTests
 			set	{	bday = value;	}
 
 		}
+		[Column(Name = "bmonth")]
 		public string Bmonth
 
 		{
@@ -147,6 +169,7 @@ namespace WebAddressbookTests
 			set	{	bmonth = value;	}
 
 		}
+		[Column(Name = "byear")]
 		public string Byear
 
 		{
@@ -154,6 +177,7 @@ namespace WebAddressbookTests
 			set	{	byear = value;	}
 
 		}
+		[Column(Name = "aday")]
 		public string Aday
 
 		{
@@ -161,6 +185,7 @@ namespace WebAddressbookTests
 			set	{	aday = value;	}
 
 		}
+		[Column(Name = "amonth")]
 		public string Amonth
 
 		{
@@ -168,6 +193,7 @@ namespace WebAddressbookTests
 			set	{	amonth = value;	}
 
 		}
+		[Column(Name = "ayear")]
 		public string Ayear
 
 		{
