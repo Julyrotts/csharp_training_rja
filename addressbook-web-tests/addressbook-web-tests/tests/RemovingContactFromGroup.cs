@@ -26,9 +26,26 @@ namespace WebAddressbookTests
 			//IsNeedToAddContactToGroup();
 		   GroupData group = GroupData.GetAll()[0];
 
+			List<GroupData> groups = GroupData.GetAll();
+			
+			List<GroupData> group_whith_contacts = groups.FindAll(g => g.GetContacts() != null); // получить список групп с контактами
+
+			if (group_whith_contacts != null) // если есть группы с контактами взять первую попавшуюся
+
+			{ group = group_whith_contacts[0]; }
+			else // если нет групп с контактами, надо добавить
+			{
+				ContactData free_contact = ContactData.GetAll().First();
+				app.Contact.AddContactToGroup(free_contact, group); 
+
+				}
+
+
+
+
 			List<ContactData> oldGroupContacts = group.GetContacts(); // получить начальный список контактов в группе
 
-			ContactData contact = oldGroupContacts.First();
+			ContactData contact = oldGroupContacts.First(); // первый попавшийся сонтакт в группе
 
 			// actions
 			app.Contact.DeleteContactFromGroup(contact, group);
