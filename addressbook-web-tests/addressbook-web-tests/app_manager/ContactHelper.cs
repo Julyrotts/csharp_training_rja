@@ -5,12 +5,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using MySqlX.XDevAPI.Relational;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.BiDi.Input;
 using OpenQA.Selenium.DevTools.V153.Network;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using static LinqToDB.Internal.Reflection.Methods.LinqToDB;
 
 namespace WebAddressbookTests
 {
@@ -362,8 +364,28 @@ namespace WebAddressbookTests
 		{
 			manager.Navigator.GoToContacts();
 
+			ICollection<IWebElement> elements = driver.FindElements(By.Name("selected[]")); // находит все чекбоксы		
+			//ICollection<IWebElement> rows = elements.FindAll(g => g.GetContacts() != null); // 
+			int i = 0;
+			int row = 0;
+			foreach (IWebElement element in elements)
+			{
+
+				string target_row = element.GetAttribute("value");
+				//if (element.GetAttribute("value") == contactId) // найти номер строки с нужным контактом по id
+				if (target_row == contactId)
+				{
+					row=i;					
+				}
+				//contactCache[i].Lastname = element.Text;
+				i++;
+				//contacts.Add(new ContactData(elementL.Text, elementL.Text));
+
+			}
+
+
 			IList<IWebElement> cells =
-			driver.FindElements(By.Name("entry"))[2].FindElements(By.TagName("td"));
+			driver.FindElements(By.Name("entry"))[row].FindElements(By.TagName("td"));
 
 			string lastname = cells[1].Text;
 			string firstname = cells[2].Text;

@@ -23,11 +23,11 @@ namespace WebAddressbookTests
 			List<ContactData> tableContacts = ContactData.GetAll();
 			ContactData tcontact = tableContacts[0]; 
 
-			ContactData fromTable = app.Contact.GetContactInformationFromTable(0);
-			ContactData fromForm = app.Contact.GetContactInformationFromEditForm(0);
+			//ContactData fromTable = app.Contact.GetContactInformationFromTable(0);
+			//ContactData fromForm = app.Contact.GetContactInformationFromEditForm(0);
 
-			//ContactData fromTable = app.Contact.GetContactInformationFromTable(tcontact);
-			//ContactData fromForm = app.Contact.GetContactInformationFromEditForm(tcontact);
+			ContactData fromTable = app.Contact.GetContactInformationFromTable(tcontact.Id);
+			ContactData fromForm = app.Contact.GetContactInformationFromEditForm(tcontact.Id);
 
 
 			// проверка

@@ -27,10 +27,11 @@ namespace WebAddressbookTests
 		   GroupData group = GroupData.GetAll()[0];
 
 			List<GroupData> groups = GroupData.GetAll();
-			
-			List<GroupData> group_whith_contacts = groups.FindAll(g => g.GetContacts() != null); // получить список групп с контактами
+			int emptyGroupContacts = (group.GetContacts()).Count;
 
-			if (group_whith_contacts != null) // если есть группы с контактами взять первую попавшуюся
+			List<GroupData> group_whith_contacts = groups.FindAll(g => (g.GetContacts()).Count != 0); // получить список групп с контактами
+
+			if (group_whith_contacts.Count != 0) // если есть группы с контактами взять первую попавшуюся
 
 			{ group = group_whith_contacts[0]; }
 			else // если нет групп с контактами, надо добавить
